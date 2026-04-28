@@ -1,0 +1,364 @@
+/* Poll System Styling */
+
+:root {
+    --primary-color: #007bff;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --border-color: #dee2e6;
+    --light-bg: #f8f9fa;
+}
+
+/* Wrapper and Container */
+.poll-wrapper {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+.poll-header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+.poll-header h1 {
+    color: #222;
+    font-size: 1.8rem;
+}
+
+.poll-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: var(--light-bg);
+    border-radius: 8px;
+    min-width: 100px;
+}
+
+.stat-item h3 {
+    margin: 0.5rem 0 0 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Controls Panel */
+.controls-panel {
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.btn-group .btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+}
+
+.btn-group .btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-outline-primary:not(.active) {
+    color: #666;
+    border-color: #ddd;
+}
+
+/* Publish Button */
+#publishBtn {
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#publishBtn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(25, 135, 84, 0.3);
+}
+
+#publishBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Publish Warning */
+#publishWarning {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem !important;
+}
+
+/* Table Styling */
+.poll-table-wrapper {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#pollTable {
+    margin-bottom: 0;
+}
+
+#pollTable thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+#pollTable thead th {
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+#pollTable tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+#pollTable tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+#pollTable tbody tr.selected {
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+#pollTable tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Checkbox Styling */
+.form-check-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.form-check-input:checked {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Poll Letter Badge */
+.poll-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0 auto;
+    min-width: 2.5rem;
+    cursor: default;
+    user-select: none;
+}
+
+.poll-letter.empty {
+    background: var(--light-bg);
+    color: var(--border-color);
+    border: 2px dashed var(--border-color);
+}
+
+/* Type Badge */
+.badge-death {
+    background-color: #dc3545;
+}
+
+.badge-vivah {
+    background-color: #0dcaf0;
+}
+
+/* Action Buttons */
+.action-buttons {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 1rem;
+}
+
+.action-buttons .btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Status Messages */
+.status-message {
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: none;
+    animation: slideIn 0.3s ease;
+}
+
+.status-message.show {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #999;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .poll-wrapper {
+        padding: 1rem;
+    }
+
+    .poll-header {
+        padding-bottom: 1rem;
+    }
+
+    .poll-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .poll-stats {
+        gap: 1rem;
+    }
+
+    .stat-item {
+        min-width: 80px;
+        padding: 0.75rem;
+    }
+
+    .controls-panel {
+        padding: 1rem;
+    }
+
+    #pollTable thead th {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+
+    #pollTable tbody td {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+
+    .poll-letter {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+        min-width: 2rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .controls-panel,
+    .action-buttons,
+    #publishBtn,
+    .form-check-input {
+        display: none !important;
+    }
+
+    .poll-table-wrapper {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+
+    #pollTable thead {
+        background: white !important;
+        color: black !important;
+    }
+
+    #pollTable thead th {
+        border-bottom: 2px solid #000;
+    }
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.pulse {
+    animation: pulse 1s infinite;
+}
+
+/* Utility Classes */
+.text-nowrap-custom {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.min-height-500 {
+    min-height: 500px;
+}

@@ -1,0 +1,12 @@
+# Block PHP execution in images directory
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+
+# Allow image files to be served
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+    Allow from all
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes

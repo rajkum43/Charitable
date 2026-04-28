@@ -1,0 +1,12 @@
+# Allow CSS files to be served
+<FilesMatch "\.(css)$">
+    Allow from all
+</FilesMatch>
+
+# Block PHP execution in CSS directory
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes

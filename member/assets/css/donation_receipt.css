@@ -1,0 +1,197 @@
+/* Donation Receipt Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Arial', 'Devanagari';
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.receipt-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border: 3px dashed #c41e3a;
+    padding: 1px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Watermark Logo */
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 120px;
+    opacity: 0.08;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.receipt-content {
+    position: relative;
+    z-index: 1;
+    padding: 5px;
+    border: 5px solid #e86060;
+    border-radius: 3px;
+    margin:15px;
+}
+
+/* Header */
+.receipt-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #c41e3a;
+}
+
+.trust-name {
+    font-size: 36px;
+    font-weight: bold;
+    color: #c41e3a;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.trust-subtitle {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Receipt Fields */
+.receipt-field {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.field-label {
+    width: 40%;
+    padding-right: 30px;
+    font-weight: 600;
+    color: #333;
+    font-size: 13px;
+}
+
+.field-value {
+    width: 60%;
+    color: #555;
+    font-size: 13px;
+    word-wrap: break-word;
+}
+
+.field-value strong {
+    color: #000;
+    font-weight: 600;
+}
+
+/* Section Divider */
+.section-divider {
+    height: 1px;
+    background: #ddd;
+    margin: 30px 0;
+}
+
+/* Footer */
+.receipt-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #c41e3a;
+}
+
+.footer-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #c41e3a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+    .receipt-container {
+        box-shadow: none;
+        max-width: 100%;
+    }
+    .print-button {
+        display: none;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .receipt-container {
+        padding: 1px;
+        border: 2px dashed #c41e3a;
+    }
+    
+    .receipt-content {
+        padding: 20px;
+    }
+    
+    .trust-name {
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+    
+    .receipt-field {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    
+    .field-label {
+        width: 100%;
+        margin-bottom: 5px;
+        padding-right: 0;
+    }
+    
+    .field-value {
+        width: 100%;
+    }
+}
+
+.print-button {
+    text-align: center;
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-print, .btn-download {
+    background: #c41e3a;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-print:hover, .btn-download:hover {
+    background: #a01830;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+}
+
+.btn-download:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}

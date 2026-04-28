@@ -1,0 +1,17 @@
+# Block direct access to assets directory
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+
+# Allow CSS, JS, images, fonts to be served
+<FilesMatch "\.(css|js|jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|eot)$">
+    Allow from all
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes
+
+# Deny directory listing
+<IfModule mod_autoindex.c>
+    IndexIgnore *
+</IfModule>

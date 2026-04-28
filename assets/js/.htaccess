@@ -1,0 +1,12 @@
+# Allow JavaScript files to be served
+<FilesMatch "\.(js)$">
+    Allow from all
+</FilesMatch>
+
+# Block PHP execution in JS directory
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes

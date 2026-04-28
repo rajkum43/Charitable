@@ -1,0 +1,521 @@
+/* ============================================
+   About Page - Responsive Styles
+   ============================================ */
+
+/* Background Image Pseudo-element */
+.about-brct::before {
+    content: "";
+    background: url("../images/girl.png") center no-repeat !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.08;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* About Section Base Styles */
+.about-brct {
+    position: relative;
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+.about-brct .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* About Card Styles */
+.about-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.about-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+}
+
+.about-card-header {
+    text-align: center;
+}
+
+.about-card-header i {
+    color: #007bff;
+    transition: transform 0.3s ease;
+}
+
+.about-card:hover .about-card-header i {
+    transform: scale(1.1);
+}
+
+.about-card-header h4 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.about-card p {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.about-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* Badge Styles */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.bg-primary-soft {
+    background-color: #f0f7ff !important;
+    border: 1px solid #e0ecff;
+}
+
+/* Heading Styles */
+.about-brct h2 {
+    color: #333;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+}
+
+.about-brct h4 {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Lead Text */
+.about-brct .lead {
+    font-size: 1.1rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Text Secondary */
+.text-secondary {
+    color: #666 !important;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    transform: translateY(-2px);
+}
+
+/* Section Spacing */
+.about-brct .py-5 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.about-brct .mb-5 {
+    margin-bottom: 3rem;
+}
+
+.about-brct .mt-5 {
+    margin-top: 3rem;
+}
+
+/* ============================================
+   Tablet Styles (768px - 991px)
+   ============================================ */
+
+@media (max-width: 991px) {
+    .about-card {
+        padding: 25px;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-brct h2 {
+        font-size: 2rem;
+    }
+
+    .about-card-header h4 {
+        font-size: 1.3rem;
+    }
+
+    .btn-primary,
+    .btn-outline-primary {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.5rem !important;
+    }
+
+    .btn-primary:first-of-type {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .btn-outline-primary {
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+
+    .row {
+        margin-left: -8px;
+        margin-right: -8px;
+    }
+
+    .col-lg-6,
+    .col-lg-12 {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+/* ============================================
+   Mobile Styles (576px - 767px)
+   ============================================ */
+
+@media (max-width: 767px) {
+    .about-brct {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .about-brct .py-5 {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .about-card {
+        padding: 20px;
+        margin-bottom: 1.5rem;
+        border-radius: 8px;
+    }
+
+    .about-card-header i {
+        font-size: 2rem !important;
+    }
+
+    .about-brct h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .about-brct h4 {
+        font-size: 1.1rem;
+    }
+
+    .about-card-header h4 {
+        font-size: 1.1rem;
+    }
+
+    .about-card p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .lead {
+        font-size: 1rem !important;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 0.5rem 1rem !important;
+        font-size: 0.85rem;
+    }
+
+    .btn-primary,
+    .btn-outline-primary {
+        display: block;
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem !important;
+        margin-bottom: 0.75rem;
+    }
+
+    .btn-outline-primary {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    .col-lg-6,
+    .col-lg-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .mb-5,
+    .mb-lg-0 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 1rem !important;
+    }
+
+    .mb-3 {
+        margin-bottom: 0.75rem !important;
+    }
+
+    /* Text Section Centering */
+    .text-center {
+        text-align: center;
+    }
+
+    .about-card-header {
+        text-align: center;
+    }
+
+    /* Row Adjustments */
+    .row {
+        margin-left: -4px;
+        margin-right: -4px;
+    }
+
+    /* Container padding */
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+
+/* ============================================
+   Small Mobile Styles (< 576px)
+   ============================================ */
+
+@media (max-width: 575px) {
+    .about-brct {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .about-brct .py-5 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .about-brct .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .about-card {
+        padding: 15px;
+        margin-bottom: 1rem;
+        border-radius: 6px;
+    }
+
+    .about-card-header {
+        margin-bottom: 1rem !important;
+    }
+
+    .about-card-header i {
+        font-size: 1.8rem !important;
+    }
+
+    .about-brct h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .about-brct h4 {
+        font-size: 1rem;
+    }
+
+    .about-card-header h4 {
+        font-size: 1rem;
+    }
+
+    .about-card p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
+    }
+
+    .lead {
+        font-size: 0.95rem !important;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem !important;
+    }
+
+    .btn-primary,
+    .btn-outline-primary {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.75rem !important;
+        margin-bottom: 0.5rem;
+    }
+
+    .lh-lg {
+        line-height: 1.5 !important;
+    }
+
+    /* Display utilities */
+    .display-5 {
+        font-size: 2rem;
+    }
+
+    /* Margin/Padding reductions */
+    .mb-5,
+    .mb-lg-0 {
+        margin-bottom: 1rem !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 0.75rem !important;
+    }
+
+    .mb-3 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .mt-5 {
+        margin-top: 1rem !important;
+    }
+
+    /* Text elements */
+    .text-secondary {
+        color: #666 !important;
+    }
+
+    /* Icon size for very small screens */
+    .fa-3x {
+        font-size: 1.5rem !important;
+    }
+
+    .fa-2x {
+        font-size: 1.25rem !important;
+    }
+
+    /* Button groups - stack vertically */
+    .btn-group-vertical {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* ============================================
+   Landscape Mobile (max-height: 500px)
+   ============================================ */
+
+@media (max-height: 500px) and (max-width: 767px) {
+    .about-card {
+        padding: 15px;
+    }
+
+    .about-card p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+    }
+
+    .about-brct h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .about-brct .py-5 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+}
+
+/* ============================================
+   High Resolution / Retina Displays
+   ============================================ */
+
+@media (-webkit-min-device-pixel-ratio: 2) and (min-width: 992px) {
+    .about-card {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    }
+
+    .about-card:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+    .about-brct::before {
+        display: none;
+    }
+
+    .about-card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+
+    .btn-primary,
+    .btn-outline-primary {
+        display: none;
+    }
+}
+
+/* ============================================
+   Accessibility Improvements
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .about-card,
+    .btn-primary,
+    .btn-outline-primary {
+        transition: none;
+    }
+
+    .about-card:hover {
+        transform: none;
+    }
+
+    .about-card-header i {
+        transition: none;
+    }
+}
+
+@media (prefers-contrast: more) {
+    .about-card {
+        border: 2px solid #333;
+    }
+
+    .about-card p {
+        color: #000;
+    }
+
+    .about-card h4 {
+        color: #000;
+        font-weight: 700;
+    }
+}

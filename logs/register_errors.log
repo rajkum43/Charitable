@@ -1,0 +1,48 @@
+[2026-03-08 12:14:12] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_624032600611_1772952252.jpg
+[2026-03-08 12:17:40] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_624032600612_1772952460.jpg
+[2026-03-09 21:06:06] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_640094437323_1773070566.jpeg
+[2026-03-11 11:18:39] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_793025055335_1773208119.jpg
+[2026-03-12 10:00:12] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_640094437323_1773289812.jpg
+[2026-03-12 11:35:30] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_640094437300_1773295530.jpg
+[2026-03-12 12:06:53] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_789654123654_1773297413.jpg
+[2026-03-12 12:42:33] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_789654123654_1773299553.jpg
+[2026-03-12 12:43:02] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_789630125874_1773299582.jpg
+[2026-03-12 20:51:36] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_789654123658_1773328896.jpg
+[2026-03-12 23:36:06] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_733333333333_1773338766.jpg
+[2026-03-12 23:36:27] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_733333333333_1773338787.jpg
+[2026-03-12 23:52:21] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_647889787589_1773339741.jpg
+[2026-03-13 01:41:33] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_888888888888_1773346293.jpg
+[2026-03-14 11:54:43] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_852369741203_1773469483.jpeg
+[2026-03-14 16:14:42] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_532577577714_1773485082.jpeg
+[2026-03-14 16:18:59] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_098775543214_1773485339.jpg
+[2026-03-14 19:51:39] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_468311931082_1773498099.jpg
+[2026-03-15 00:09:50] Receipt uploaded successfully: ../uploads/payment_receipts/receipt_987665432678_1773513590.jpg
+[2026-03-15 01:14:47] === New Registration Request ===
+[2026-03-15 01:14:47] Method: POST
+[2026-03-15 01:14:47] POST data received: {"utrNumber":"676767868698698","paymentConfirm":"on","fullName":"DHVJHJKK","aadharNumber":"7897 8979 8989","fatherName":"JKLJKML","dob":"2007-01-01","mobile":"7896512698","occupation":"\u0938\u0930\u0915\u093e\u0930\u0940 \u0928\u094c\u0915\u0930\u0940","office_name":"","office_address":"","nomineeName":"egrgbfge","nomineeRelation":"\u092a\u0924\u093f","nomineeMobile":"9788766757","nomineeAadhar":"567890345643","state":"\u0909\u0924\u094d\u0924\u0930 \u092a\u094d\u0930\u0926\u0947\u0936","manualStateName":"","district":"AZAMGARH","manualDistrict":"","block":"MAHRAJGANJ","manualBlock":"","permanentAddress":"rsgdfab","referrerMemberId":"","email":"","password":"1234567","terms":"on"}
+[2026-03-15 01:15:12] === New Registration Request ===
+[2026-03-15 01:15:12] Method: POST
+[2026-03-15 01:15:12] POST data received: {"utrNumber":"676767868698698","paymentConfirm":"on","fullName":"DHVJHJKK","aadharNumber":"7897 8979 8989","fatherName":"JKLJKML","dob":"2007-01-01","mobile":"7896512698","gender":"\u092a\u0941\u0930\u0941\u0937","occupation":"\u0938\u0930\u0915\u093e\u0930\u0940 \u0928\u094c\u0915\u0930\u0940","office_name":"","office_address":"","nomineeName":"egrgbfge","nomineeRelation":"\u092a\u0924\u093f","nomineeMobile":"9788766757","nomineeAadhar":"567890345643","state":"\u0909\u0924\u094d\u0924\u0930 \u092a\u094d\u0930\u0926\u0947\u0936","manualStateName":"","district":"AZAMGARH","manualDistrict":"","block":"MAHRAJGANJ","manualBlock":"","permanentAddress":"rsgdfab","referrerMemberId":"","email":"","password":"1234567","terms":"on"}
+[2026-03-15 01:36:25] === New Registration Request ===
+[2026-03-15 01:36:25] Method: POST
+[2026-03-15 01:36:25] POST data received: {"utrNumber":"Hsh776677888888","paymentConfirm":"on","fullName":"Hshjsjk","aadharNumber":"6363 8838 3888","fatherName":"Hshsjjdjhh","dob":"2001-03-15","mobile":"6646669996","gender":"\u092a\u0941\u0930\u0941\u0937","occupation":"\u0915\u0943\u0937\u093f","office_name":"Hshjdj","office_address":"","nomineeName":"Hhshsjj","nomineeRelation":"\u092a\u0924\u093f","nomineeMobile":"9666688888","nomineeAadhar":"896321456985","state":"\u0909\u0924\u094d\u0924\u0930 \u092a\u094d\u0930\u0926\u0947\u0936","manualStateName":"","district":"AMROHA","manualDistrict":"","block":"GAJRAULA","manualBlock":"","permanentAddress":"Hshsjjdj","referrerMemberId":"","email":"","password":"12345588999","terms":"on"}
+[2026-04-19 15:12:54] === New Registration Request ===
+[2026-04-19 15:12:54] Method: POST
+[2026-04-19 15:12:54] POST data received: {"utrNumber":"fdfg78756454","paymentConfirm":"on","fullName":"Vivek Vishwakarma","aadharNumber":"5454 5646 5456","fatherName":"JOKHAN","dob":"2000-01-01","mobile":"8956546565","gender":"\u092a\u0941\u0930\u0941\u0937","occupation":"\u0917\u0943\u0939\u093f\u0923\u0940","office_name":"maharajganj","office_address":"dbgfdn mdfn","nomineeName":"shreya kumari","nomineeRelation":"\u092c\u0947\u091f\u0940","nomineeMobile":"7889845455","nomineeAadhar":"874556565646","state":"\u0909\u0924\u094d\u0924\u0930 \u092a\u094d\u0930\u0926\u0947\u0936","manualStateName":"","district":"MAHARAJGANJ","manualDistrict":"","block":"DHANI","manualBlock":"","permanentAddress":"sgfhsdf","referrerMemberId":"","email":"vivekvish974204@gmail.com","password":"Ram@12345","terms":"on"}
+[2026-04-19 15:12:54] Auto-assigned poll option: A (current count: 955)
+[2026-04-19 15:12:54] SQL तैयारी विफल: Column count doesn't match value count at row 1
+[2026-04-19 15:12:54] Exception: SQL तैयारी विफल: Column count doesn't match value count at row 1
+[2026-04-19 15:12:54] Stack: #0 {main}
+[2026-04-19 15:14:35] === New Registration Request ===
+[2026-04-19 15:14:35] Method: POST
+[2026-04-19 15:14:35] POST data received: {"utrNumber":"fdfg78756454","paymentConfirm":"on","fullName":"Vivek Vishwakarma","aadharNumber":"5454 5646 5456","fatherName":"JOKHAN","dob":"2000-01-01","mobile":"8956546565","gender":"\u092a\u0941\u0930\u0941\u0937","occupation":"\u0917\u0943\u0939\u093f\u0923\u0940","office_name":"maharajganj","office_address":"dbgfdn mdfn","nomineeName":"shreya kumari","nomineeRelation":"\u092c\u0947\u091f\u0940","nomineeMobile":"7889845455","nomineeAadhar":"874556565646","state":"\u0909\u0924\u094d\u0924\u0930 \u092a\u094d\u0930\u0926\u0947\u0936","manualStateName":"","district":"MAHARAJGANJ","manualDistrict":"","block":"DHANI","manualBlock":"","permanentAddress":"sgfhsdf","referrerMemberId":"","email":"vivekvish974204@gmail.com","password":"Ram@12345","terms":"on"}
+[2026-04-19 15:14:35] Auto-assigned poll option: A (current count: 955)
+[2026-04-19 15:14:35] SQL तैयारी विफल: Column count doesn't match value count at row 1
+[2026-04-19 15:14:35] Exception: SQL तैयारी विफल: Column count doesn't match value count at row 1
+[2026-04-19 15:14:35] Stack: #0 {main}
+[2026-04-20 18:44:04] === New Registration Request ===
+[2026-04-20 18:44:04] Method: POST
+[2026-04-20 18:44:04] POST data received: {"utrNumber":"vivek34785697","paymentConfirm":"on","fullName":"vivek vishwakarma","aadharNumber":"7867 9797 8978","fatherName":"JOKHAN","dob":"2000-01-01","mobile":"9682974289","gender":"\u092a\u0941\u0930\u0941\u0937","occupation":"\u0928\u093f\u091c\u0940 \u0928\u094c\u0915\u0930\u0940","office_name":"","office_address":"","nomineeName":"shreya kumari","nomineeRelation":"\u092e\u093e\u0924\u093e","nomineeMobile":"8745555664","nomineeAadhar":"963217021458","state":"\u0909\u0924\u094d\u0924\u0930 \u092a\u094d\u0930\u0926\u0947\u0936","manualStateName":"","district":"BALLIA","manualDistrict":"","block":"NAGRA","manualBlock":"","permanentAddress":"dvgfdg dfbdfb","referrerMemberId":"","email":"","password":"Ram@12345","terms":"on"}
+[2026-04-22 10:09:31] === New Registration Request ===
+[2026-04-22 10:09:31] Method: POST
+[2026-04-22 10:09:31] POST data received: {"utrNumber":"vivek46757567","paymentConfirm":"on","fullName":"vivek vishwakarmae","aadharNumber":"7896 5412 5478","fatherName":"santosh","dob":"2000-01-01","mobile":"9682974432","gender":"\u092a\u0941\u0930\u0941\u0937","occupation":"\u0915\u0943\u0937\u093f","office_name":"","office_address":"","nomineeName":"shreya kumari","nomineeRelation":"\u092c\u0947\u091f\u093e","nomineeMobile":"9658745554","nomineeAadhar":"456321789000","state":"\u0909\u0924\u094d\u0924\u0930 \u092a\u094d\u0930\u0926\u0947\u0936","manualStateName":"","district":"AYODHYA","manualDistrict":"","block":"MASODHA","manualBlock":"","permanentAddress":"tgfhgh","referrerMemberId":"","email":"","password":"Ram@12345","terms":"on"}

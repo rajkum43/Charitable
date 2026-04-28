@@ -1,0 +1,28 @@
+<!-- Security: Prevent script execution and directory listing in donations upload directory -->
+
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.phtml$">
+    Deny from all
+</FilesMatch>
+
+Options -Indexes
+Options -ExecCGI
+
+<!-- Allow image and PDF downloads only -->
+<FilesMatch "\.(pdf|jpg|jpeg|png)$">
+    Allow from all
+</FilesMatch>
+
+<!-- Add proper MIME types -->
+AddType image/jpeg .jpg
+AddType image/jpeg .jpeg
+AddType image/png .png
+AddType application/pdf .pdf
+
+<!-- Set cache control -->
+<FilesMatch "\.(pdf|jpg|jpeg|png)$">
+    Header set Cache-Control "max-age=172800, public"
+</FilesMatch>

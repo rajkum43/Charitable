@@ -1,0 +1,10 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Block all PHP files except whitelisted ones
+    RewriteCond %{REQUEST_FILENAME} \.php$
+    RewriteCond %{REQUEST_FILENAME} !/(login|logout|register-admin|search-member|update-member)\.php$
+    RewriteRule ^.*$ - [F,L]
+</IfModule>
+

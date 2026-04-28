@@ -1,0 +1,166 @@
+     * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', 'Noto Sans Devanagari', sans-serif;
+        }
+        
+        /* Header, Navbar, Footer को full width करने के लिए */
+        body > header,
+        body > nav,
+        body > footer,
+        body > .top-header,
+        body > .navbar,
+        body > .footer {
+            width: 100%;
+            padding: 20px 0;
+        }
+        
+        /* Main content wrapper */
+        .niyamavali-wrapper {
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Pages container - center aligned */
+        #pages-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* A4 पेज स्टाइल */
+        .a4-page {
+            background-color: white;
+            width: 21cm;
+            max-width: 100%;
+            min-height: 29.7cm;
+            margin: 15px auto;
+            padding: 1.5cm 1.5cm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            position: relative;
+            border-radius: 2px;
+            overflow: hidden;
+            page-break-after: always;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #222;
+            flex-shrink: 0;
+        }
+        
+        /* A4 Page Watermark */
+        .a4-page::before {
+            content: "";
+            background: url("../assets/images/girl.png") center no-repeat !important;
+            background-size: contain !important;
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Mobile responsive - A4 पेज को छोटा करें */
+        @media (max-width: 900px) {
+            .a4-page {
+                width: 90vw;
+                max-width: 21cm;
+                margin: 10px auto;
+                padding: 1cm 1cm;
+            }
+        }
+
+        /* कंटेंट रैपर - असल ऊंचाई यहाँ मापी जाएगी */
+        .page-content {
+            width: 100%;
+            height: 100%; /* पेज की पूरी ऊंचाई लेगा */
+            position: relative;
+            z-index: 2;
+        }
+
+        /* हेडिंग स्टाइल */
+        h1 {
+            font-size: 20pt;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 16pt;
+            text-align: center;
+            margin: 15px 0 10px 0;
+            border-bottom: 2px solid #444;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 14pt;
+            margin: 15px 0 5px 0;
+            font-weight: bold;
+        }
+        .main-title {
+            font-size: 24pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px 0;
+            color: #b3002d;
+        }
+        .sub-title {
+            font-size: 18pt;
+            text-align: center;
+            margin: 5px 0 20px 0;
+            font-weight: normal;
+        }
+
+        /* पैराग्राफ और लिस्ट स्टाइल */
+        p {
+            margin: 8px 0;
+            text-align: justify;
+        }
+        .section-number {
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .nested-list {
+            margin-left: 25px;
+            list-style-type: disc;
+        }
+        .nested-list li {
+            margin: 3px 0;
+        }
+        hr {
+            margin: 15px 0;
+            border: 1px dashed #aaa;
+        }
+        .note {
+            font-style: italic;
+            margin: 10px 0;
+            padding: 5px;
+            background-color: #f9f9f9;
+            border-left: 3px solid #b3002d;
+        }
+        .footer-note {
+            font-size: 11pt;
+            color: #555;
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }

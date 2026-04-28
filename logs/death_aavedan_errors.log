@@ -1,0 +1,13 @@
+ 
+[2026-03-28 10:20:31] API initialized, loading config files...
+[2026-03-28 14:50:31] === NEW REQUEST ===
+[2026-03-28 14:50:31] POST data received: {"member_name":"santosh","member_id_display":"32600611","member_mobile":"9125996621","member_dob":"1995-07-05","member_address":"maharajganj","applicant_name":"santosh","applicant_dob":"2000-01-01","applicant_relation":"\u092a\u093f\u0924\u093e","applicant_parent_name":"jokhan","deceased_name":"santosh","deceased_member_id":"32600611","deceased_dob":"1995-07-05","deceased_age":"30","death_date":"2026-01-01","deceased_relationship":"\u092a\u093f\u0924\u093e","cause_of_death":"zxvx dvf","family_income":"5000","family_members":"5","remarks":"jngh gnff","ifsc_code":"SBIN0003416","bank_name":"State Bank of India","branch_name":"DHANI","account_number":"36752442277","account_holder_name":"santosh","upi_id":"9125996621@ybl","confirm_details":"on","hidden_member_id":"32600611","member_id":"32600611","action":"submit_application"}
+[2026-03-28 14:50:31] REQUEST METHOD: POST
+[2026-03-28 14:50:31] CONTENT TYPE: multipart/form-data; boundary=----WebKitFormBoundaryXATTwXKLRj1ZQhhG
+[2026-03-28 14:50:31] File uploaded successfully: DA202603288544_deceased_aadhar.jpg for deceased_aadhar
+[2026-03-28 14:50:31] File uploaded successfully: DA202603288544_death_certificate.jpg for death_certificate
+[2026-03-28 14:50:31] File uploaded successfully: DA202603288544_post_mortem_report.jpg for post_mortem_report
+[2026-03-28 14:50:31] ERROR: The number of elements in the type definition string must match the number of bind variables
+[2026-03-28 14:50:31] FILE: C:\xampp\htdocs\Charitable\api\death_aavedan.php LINE: 650
+[2026-03-28 14:50:31] TRACE: #0 C:\xampp\htdocs\Charitable\api\death_aavedan.php(650): mysqli_stmt->bind_param('sssssssssssissd...', 'DA202603288544', '32600611', 'santosh', '1995-07-05', '9125996621', 'maharajganj', 'santosh', '2000-01-01', '\xE0\xA4\xAA\xE0\xA4\xBF\xE0\xA4\xA4\xE0\xA4\xBE', 'jokhan', 'santosh', '32600611', '1995-07-05', 30, '2026-01-01', '\xE0\xA4\xAA\xE0\xA4\xBF\xE0\xA4\xA4\xE0\xA4\xBE', 'zxvx dvf', 5000, 5, 'State Bank of I...', 'DHANI', '36752442277', 'SBIN0003416', 'santosh', '9125996621@ybl', 'DA202603288544_...', 'DA202603288544_...', 'DA202603288544_...', 'jngh gnff')
+#1 {main}

@@ -1,0 +1,80 @@
+/* Manager Pages CSS (Slider Manager & Member Stories) */
+
+.slider-card {
+    transition: all 0.3s;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.slider-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.slider-image {
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.story-card:hover { 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+
+.story-image { 
+    height: 200px;
+    width: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.modal-header {
+    background: #0d6efd;
+    color: white;
+}
+
+.modal-header.success-header {
+    background: #198754;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.modal-header.success-header ~ .modal-body .form-control:focus,
+.modal-header.success-header ~ .modal-body .form-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15);
+}
+
+.passport-preview {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+.page-header.success-header h1 {
+    color: #198754;
+}
+
+.sidebar { 
+    min-height: 100vh; 
+}

@@ -1,0 +1,439 @@
+/* Sahyog Page Specific Styles */
+
+.sahyog-section {
+    padding: 20px 0;
+}
+
+/* Beneficiary Card */
+.beneficiary-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.beneficiary-card .card-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+    border: none;
+    padding: 20px;
+}
+
+.beneficiary-profile {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.beneficiary-profile h5 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.beneficiary-profile .text-muted {
+    font-size: 14px;
+}
+
+.donation-badge {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.donation-amount {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.donation-badge small {
+    color: rgba(255, 255, 255, 0.9);
+    display: block;
+}
+
+/* Progress Bar */
+.progress {
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+    transition: width 0.6s ease;
+    border-radius: 4px;
+}
+
+/* Donate Now Button */
+.donate-now-btn {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+.donate-now-btn:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 87, 179, 0.3);
+    color: white;
+}
+
+.donate-now-btn.active {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+}
+
+.donate-now-btn.active:hover {
+    background: linear-gradient(135deg, #1e7e34 0%, #145a27 100%);
+}
+
+/* View Beneficiary Button - Home Page */
+.view-beneficiary-btn {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 15px 40px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.view-beneficiary-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #c82333 0%, #bd1f26 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(220, 53, 69, 0.4);
+    color: white;
+}
+
+.view-beneficiary-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Payment Details Toggle Section */
+.payment-details-toggle {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Payment Modal */
+.modal-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: none;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.payment-method {
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: #f8f9fa;
+    margin-bottom: 15px;
+}
+
+.payment-method h6 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.payment-method .alert {
+    margin-bottom: 12px;
+}
+
+/* Auto-display Payment Details Section */
+.payment-details-inline {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.payment-method-inline {
+    padding: 15px 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.payment-method-inline:last-child {
+    border-bottom: none;
+}
+
+.payment-method-inline h6 {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* UPI Section */
+.upi-section {
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, rgba(0, 123, 255, 0.02) 100%);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.qr-code-container {
+    display: inline-block;
+    padding: 15px;
+    background: white;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15);
+}
+
+.qr-code-container img {
+    display: block;
+    max-width: 100%;
+}
+
+.upi-details {
+    padding: 10px 0;
+}
+
+.upi-copy-box {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.upi-copy-box .form-control {
+    border: 2px solid #007bff;
+    color: #007bff;
+    font-size: 14px;
+}
+
+.upi-copy-box .btn {
+    white-space: nowrap;
+}
+
+/* Bank Section */
+.bank-section {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(40, 167, 69, 0.02) 100%);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.bank-details-box {
+    border-left: 4px solid #28a745;
+}
+
+.bank-details-box .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.bank-details-box .detail-row .label {
+    color: #666;
+    min-width: 120px;
+}
+
+.bank-details-box .detail-row strong {
+    color: #333;
+    font-weight: 600;
+    word-break: break-all;
+    flex: 1;
+}
+
+.bank-details-box .detail-row .btn {
+    flex-shrink: 0;
+}
+
+/* Responsive Design for Payment Details */
+@media (max-width: 768px) {
+    .payment-details-inline {
+        padding: 15px;
+    }
+
+    .upi-section,
+    .bank-section {
+        padding: 15px;
+    }
+
+    .payment-method-inline h6 {
+        font-size: 1rem;
+    }
+
+    .qr-code-container {
+        margin: 0 auto 15px;
+        padding: 10px;
+    }
+
+    .bank-details-box .detail-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .bank-details-box .detail-row .label {
+        min-width: unset;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .bank-details-box .detail-row .btn {
+        margin-top: 5px;
+        width: 100%;
+    }
+}
+
+.payment-method .alert p {
+    margin-bottom: 4px;
+    word-break: break-all;
+}
+
+/* QR Code Container */
+#qrCode {
+    padding: 10px;
+    background: white;
+    border-radius: 6px;
+    border: 2px solid #dee2e6;
+    display: inline-block;
+    margin: 10px auto;
+}
+
+#qrCode canvas {
+    display: block;
+    max-width: 100%;
+}
+
+/* Form styling */
+.form-control:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.form-label {
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.btn-primary {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-primary:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Card Header Gradient */
+.card-header.bg-gradient {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sahyog-section {
+        padding: 15px 0;
+    }
+
+    .beneficiary-profile {
+        padding: 15px 0;
+    }
+
+    .donation-badge {
+        padding: 15px;
+    }
+
+    .donation-amount {
+        font-size: 1.5rem;
+    }
+
+    .payment-method {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .modal-dialog {
+        margin: 20px 10px;
+    }
+
+    #qrCode {
+        width: 100%;
+        max-width: 180px;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .sahyog-section {
+        padding: 10px 0;
+    }
+
+    .beneficiary-profile {
+        padding: 10px 0;
+    }
+
+    .beneficiary-profile h5 {
+        font-size: 1.1rem;
+    }
+
+    .donation-badge {
+        padding: 12px;
+        margin-top: 10px;
+    }
+
+    .donation-amount {
+        font-size: 1.3rem;
+    }
+
+    .card {
+        margin-bottom: 15px;
+    }
+
+    .modal-dialog {
+        margin: 10px;
+    }
+
+    #qrCode {
+        max-width: 150px;
+    }
+
+    .payment-method h6 {
+        font-size: 14px;
+    }
+}
+
+/* Donation History (if needed in future) */
+.donation-item {
+    padding: 12px;
+    border-left: 4px solid #dc3545;
+    background: #f8f9fa;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.donation-item-amount {
+    font-weight: 600;
+    color: #28a745;
+}
