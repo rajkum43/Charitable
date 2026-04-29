@@ -26,8 +26,8 @@ try {
                 dt.amount,
                 dt.created_at
               FROM donation_transactions dt
-              LEFT JOIN members m ON dt.member_id = m.member_id
-              LEFT JOIN beti_vivah_aavedan b ON dt.donation_to_member_id = b.member_id
+              LEFT JOIN members m ON dt.member_id COLLATE utf8mb4_unicode_ci = m.member_id COLLATE utf8mb4_unicode_ci
+              LEFT JOIN beti_vivah_aavedan b ON dt.donation_to_member_id COLLATE utf8mb4_unicode_ci = b.member_id COLLATE utf8mb4_unicode_ci
               WHERE dt.donation_to_member_id = ? 
               AND dt.application_type = 'Beti_Vivah'
               ORDER BY dt.created_at DESC";

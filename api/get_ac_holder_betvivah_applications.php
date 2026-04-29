@@ -21,7 +21,7 @@ try {
                 b.bank_name,
                 b.ifsc_code
               FROM beti_vivah_aavedan b
-              LEFT JOIN members m ON b.member_id = m.member_id
+              LEFT JOIN members m ON b.member_id COLLATE utf8mb4_unicode_ci = m.member_id COLLATE utf8mb4_unicode_ci
               WHERE b.status = 'Approved' 
               ORDER BY b.wedding_date DESC";
     
