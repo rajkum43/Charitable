@@ -30,8 +30,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<?php echo $root_path; ?>pages/beti_vivah_sahyog_suchi_all.php">All Sahyog Suchi</a></li>
-                        <!-- <li><a class="dropdown-item" href="<?php echo $root_path; ?>pages/beti_vivah_suchi_account.php">Account Holder Wise</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $root_path; ?>pages/beti_vivah_suchi_alert.php">Alert Wise</a></li> -->
+                         <li><a class="dropdown-item" href="<?php echo $root_path; ?>pages/ac-holder-betvivah-suchi.php">Account Holder Wise</a></li>
+                        <!-- <li><a class="dropdown-item" href="<?php echo $root_path; ?>pages/beti_vivah_suchi_alert.php">Alert Wise</a></li> -->
                     </ul>
                 </li>
                  <li class="nav-item dropdown">
