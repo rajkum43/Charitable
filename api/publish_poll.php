@@ -71,13 +71,44 @@ try {
     // Start transaction
     $conn->begin_transaction();
 
+    // Step 0: Get current alert number (MAX(alert) + 1)
+    $alertNumber = 1; // Default to 1 for first publish
+    $tableCheckResult = $conn->query("SHOW TABLES LIKE 'poll'");
+    
+    if ($tableCheckResult && $tableCheckResult->num_rows > 0) {
+        // Check if alert column exists
+        $columnCheck = $conn->query("SHOW COLUMNS FROM `poll` LIKE 'alert'");
+        if ($columnCheck && $columnCheck->num_rows > 0) {
+            // Get MAX(alert) from poll table
+            $maxAlertResult = $conn->query("SELECT MAX(alert) as max_alert FROM poll");
+            if ($maxAlertResult) {
+                $maxAlertRow = $maxAlertResult->fetch_assoc();
+                $maxAlert = $maxAlertRow['max_alert'];
+                $alertNumber = ($maxAlert === null || $maxAlert == 0) ? 1 : $maxAlert + 1;
+                error_log("DEBUG: Current alert number = $alertNumber (previous max = $maxAlert)");
+            }
+        }
+    }
+
     // Step 1: Insert polls into poll table (if table exists)
     $tableCheckResult = $conn->query("SHOW TABLES LIKE 'poll'");
     $insertErrors = [];
     
     if ($tableCheckResult && $tableCheckResult->num_rows > 0) {
-        $insertSQL = "INSERT INTO poll (claim_number, user_id, poll, application_type, start_poll_date, expire_poll_date, created_at, updated_at) 
-                     VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())";
+        // Check if alert column exists in the table
+        $columnCheck = $conn->query("SHOW COLUMNS FROM `poll` LIKE 'alert'");
+        $hasAlertColumn = ($columnCheck && $columnCheck->num_rows > 0);
+        
+        if ($hasAlertColumn) {
+            // Insert with alert column
+            $insertSQL = "INSERT INTO poll (claim_number, user_id, poll, application_type, alert, start_poll_date, expire_poll_date, created_at, updated_at) 
+                         VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+        } else {
+            // Insert without alert column (backward compatibility)
+            $insertSQL = "INSERT INTO poll (claim_number, user_id, poll, application_type, start_poll_date, expire_poll_date, created_at, updated_at) 
+                         VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())";
+        }
+        
         $stmt = $conn->prepare($insertSQL);
 
         if ($stmt) {
@@ -88,14 +119,18 @@ try {
                 $applicationType = $poll['application_type'] ?? '';
 
                 // Debug logging
-                error_log("DEBUG: Inserting poll - Claim: $claimNumber, User: $userId, Poll: $pollOption, Type: $applicationType");
+                error_log("DEBUG: Inserting poll - Claim: $claimNumber, User: $userId, Poll: $pollOption, Type: $applicationType, Alert: $alertNumber");
 
-                $stmt->bind_param("ssssss", $claimNumber, $userId, $pollOption, $applicationType, $startPollDate, $expirePollDate);
+                if ($hasAlertColumn) {
+                    $stmt->bind_param("ssssiis", $claimNumber, $userId, $pollOption, $applicationType, $alertNumber, $startPollDate, $expirePollDate);
+                } else {
+                    $stmt->bind_param("ssssss", $claimNumber, $userId, $pollOption, $applicationType, $startPollDate, $expirePollDate);
+                }
                 
                 if ($stmt->execute()) {
                     $insertedCount++;
                     $insertedClaimNumbers[] = $claimNumber;
-                    error_log("DEBUG: Successfully inserted $claimNumber");
+                    error_log("DEBUG: Successfully inserted $claimNumber with alert=$alertNumber");
                 } else {
                     $errorMsg = "Poll insert error for claim $claimNumber: " . $stmt->error;
                     error_log($errorMsg);
@@ -153,6 +188,7 @@ try {
     echo json_encode([
         'success' => true,
         'message' => 'पोल सफलतापूर्वक प्रकाशित हो गया!',
+        'alert_number' => $alertNumber,
         'inserted' => $insertedCount,
         'total_selected' => count($polls),
         'death_claims_updated' => $deathClaimsUpdated,

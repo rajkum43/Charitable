@@ -1,0 +1,346 @@
+/**
+ * Alert Death Details Page - Styles
+ * Styling for death sahyog donation details table and filters
+ */
+
+/* Total Collection Display */
+.total-collection {
+    background: linear-gradient(135deg, #0631f1 0%, #667eea 50%, #d3b200 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(6, 49, 241, 0.2);
+    text-align: center;
+}
+
+.total-collection span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+/* Filter Section */
+.filter-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+    font-size: 0.9rem;
+}
+
+.filter-group label i {
+    margin-right: 0.5rem;
+    color: #0631f1;
+}
+
+.filter-group .form-select {
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.filter-group .form-select:hover {
+    border-color: #0631f1;
+}
+
+.filter-group .form-select:focus {
+    outline: none;
+    border-color: #0631f1;
+    box-shadow: 0 0 0 3px rgba(6, 49, 241, 0.1);
+}
+
+.filter-group .form-select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Search Section */
+.search-pagination-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-box label {
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.search-box label i {
+    margin-right: 0.5rem;
+    color: #0631f1;
+}
+
+.search-box .form-control {
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.search-box .form-control:focus {
+    outline: none;
+    border-color: #0631f1;
+    box-shadow: 0 0 0 3px rgba(6, 49, 241, 0.1);
+}
+
+/* Members Section */
+.members-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Table Styles */
+.table-responsive {
+    padding: 0;
+    border-radius: 12px 12px 0 0;
+}
+
+.members-table {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.members-table thead {
+    background: #f8f9fa;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.members-table thead th {
+    color: #1a1a1a;
+    font-weight: 600;
+    padding: 1rem;
+    border: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.members-table tbody {
+    background: white;
+}
+
+.members-table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.members-table tbody tr:hover {
+    background-color: #f8f9fa;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.members-table tbody td {
+    padding: 1rem;
+    color: #1a1a1a;
+    vertical-align: middle;
+}
+
+.members-table tbody td:last-child {
+    border-right: none;
+}
+
+/* Amount Cell */
+.members-table tbody td:nth-child(4) {
+    color: #0631f1;
+    font-weight: 600;
+}
+
+/* Loading State */
+.loading-row {
+    padding: 2rem !important;
+}
+
+.loading-row .spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.pagination .page-item {
+    margin: 0 0.25rem;
+}
+
+.pagination .page-link {
+    padding: 0.5rem 0.8rem;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    color: #0631f1;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.pagination .page-link:hover:not(.disabled) {
+    background-color: #0631f1;
+    color: white;
+    border-color: #0631f1;
+    transform: translateY(-2px);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0631f1;
+    color: white;
+    border-color: #0631f1;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* No Data Message */
+.alert-info {
+    border: 1px solid #d1ecf1;
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-radius: 12px;
+}
+
+.alert-info i {
+    font-size: 2rem;
+    color: #0c5460;
+    margin-bottom: 1rem;
+}
+
+.alert-info p {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .search-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-box label {
+        margin-bottom: 0.5rem;
+    }
+
+    .search-box .form-control {
+        width: 100%;
+    }
+
+    .members-table {
+        font-size: 0.85rem;
+    }
+
+    .members-table thead th,
+    .members-table tbody td {
+        padding: 0.75rem;
+    }
+
+    .members-table thead th {
+        font-size: 0.75rem;
+    }
+
+    .total-collection {
+        font-size: 1.1rem;
+    }
+
+    .total-collection span {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-section,
+    .search-pagination-section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .filter-row {
+        gap: 0.75rem;
+    }
+
+    .members-table {
+        font-size: 0.8rem;
+    }
+
+    .members-table thead th,
+    .members-table tbody td {
+        padding: 0.5rem;
+    }
+
+    .members-table thead th {
+        font-size: 0.65rem;
+    }
+
+    .pagination {
+        padding: 1rem;
+        gap: 0.25rem;
+    }
+
+    .pagination .page-link {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .total-collection {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .total-collection span {
+        font-size: 1.2rem;
+    }
+}

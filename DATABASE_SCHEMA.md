@@ -103,6 +103,7 @@ Columns:
 ├── user_id (int) - Member ID
 ├── poll (char(1)) - Poll option: 'A', 'B', 'C', 'D', etc.
 ├── application_type (enum) - 'Death' or 'Beti_Vivah'
+├── alert (int) - Publish event number ⭐ (NEW) - tracks which publish batch the record belongs to
 ├── start_poll_date (date) - Poll start date (10th of month) ⭐
 ├── expire_poll_date (date) - Poll end date (20th of month) ⭐
 ├── created_at (timestamp) - Record creation time
@@ -175,6 +176,24 @@ WHERE m.status = 'Active';
 4. **Poll Status:** Both tables now have `poll_status` column (0=not in poll, 1=in poll)
 5. **Poll Dates:** Auto-set to 10th-20th of current month
 6. **Member Distribution:** Uses temporary table for bulk updates (high performance)
+7. **Alert Column:** Tracks which publish batch records belong to (1=first publish, 2=second publish, etc.)
+
+---
+
+## 📊 Alert Column Logic (Poll Publishing)
+
+The `alert` column in the `poll` table tracks which publish event a record belongs to:
+
+**Example Timeline:**
+- **First Publish:** Admin clicks "प्रकाशित करें" → `SELECT MAX(alert)` returns NULL/0 → Use alert = 1
+  - All 5 selected rows get `alert = 1`
+- **Second Publish:** Admin clicks "प्रकाशित करें" again → `SELECT MAX(alert)` returns 1 → Use alert = 2
+  - All newly selected rows get `alert = 2`
+- **Third Publish:** `SELECT MAX(alert)` returns 2 → Use alert = 3
+  - All newly selected rows get `alert = 3`
+- **And so on...** Each publish batch automatically increments
+
+**Key Rule:** All rows inserted in a single publish action share the same alert number.
 
 ---
 
