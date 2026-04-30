@@ -154,6 +154,18 @@ $admins_count = $conn->query("SELECT COUNT(*) as count FROM admin_users")->fetch
                                 <span class="badge bg-info">Utility Tool</span>
                             </a>
                         </div>
+
+                        <!-- Poll Expiry Manager -->
+                        <div class="col-md-6 col-lg-4">
+                            <a href="poll-expiry-manager.php" class="menu-card dashboard-card text-center">
+                                <div class="menu-card-icon text-warning">
+                                    <i class="fas fa-poll"></i>
+                                </div>
+                                <h3 class="fw-bold">Poll Expiry Manager</h3>
+                                <p class="text-secondary mb-3">Poll के expiry dates को प्रबंधित करें</p>
+                                <span class="badge bg-warning">Management</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

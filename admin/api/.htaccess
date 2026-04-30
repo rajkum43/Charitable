@@ -4,7 +4,7 @@ Options -Indexes
     RewriteEngine On
     # Block all PHP files except whitelisted ones
     RewriteCond %{REQUEST_FILENAME} \.php$
-    RewriteCond %{REQUEST_FILENAME} !/(login|logout|register-admin|search-member|update-member)\.php$
+    RewriteCond %{REQUEST_FILENAME} !/(login|logout|register-admin|search-member|poll-api|update-member)\.php$
     RewriteRule ^.*$ - [F,L]
 </IfModule>
 

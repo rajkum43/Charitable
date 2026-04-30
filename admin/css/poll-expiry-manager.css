@@ -1,0 +1,167 @@
+/* Poll Expiry Manager Styles */
+
+.poll-table {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.poll-row {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #eee;
+}
+
+.poll-row:hover {
+    background-color: #f8f9fa;
+}
+
+.date-input {
+    max-width: 150px;
+    font-size: 0.9rem;
+}
+
+.badge-death {
+    background-color: #dc3545;
+}
+
+.badge-vivah {
+    background-color: #28a745;
+}
+
+.action-buttons {
+    white-space: nowrap;
+}
+
+.action-buttons .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+/* Search Section Styles */
+.search-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    border-radius: 10px;
+    color: white;
+}
+
+.search-section h5 {
+    color: white;
+    font-weight: 600;
+}
+
+.search-section .input-group-text {
+    background-color: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+}
+
+.search-section .form-control {
+    background-color: rgba(255,255,255,0.95);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.search-section .btn-primary {
+    background-color: #fff;
+    color: #667eea;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.search-section .btn-primary:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.search-section .btn-secondary {
+    background-color: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.search-section .btn-secondary:hover {
+    background-color: rgba(255,255,255,0.3);
+    border-color: rgba(255,255,255,0.5);
+}
+
+/* Results Info */
+#results-info {
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Table Responsive */
+@media (max-width: 768px) {
+    .date-input {
+        max-width: 100%;
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
+
+    .table-responsive {
+        font-size: 0.85rem;
+    }
+}
+
+/* Alert Animations */
+.alert {
+    animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.card-title {
+    color: #333;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 1rem;
+}
+
+/* Badge Enhancements */
+.badge {
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
