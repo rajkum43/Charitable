@@ -8,8 +8,6 @@ let allDistricts = [];
 let allBlocks = [];
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Members Directory page loaded');
-    
     // Load initial members and filters
     loadMembers();
     loadFilterOptions();
@@ -93,22 +91,18 @@ function loadFilterOptions() {
     
     fetch(apiUrl)
         .then(response => {
-            console.log('Filter options response status:', response.status);
             if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
             return response.json();
         })
         .then(data => {
-            console.log('Filter options data:', data);
             if (data.success) {
                 allDistricts = data.data.districts || [];
                 populateDistrictFilter();
             } else {
-                console.error('API error:', data.message);
                 showAlert('फिल्टर लोड करने में त्रुटि: ' + data.message, 'danger');
             }
         })
         .catch(error => {
-            console.error('Error loading filter options:', error);
             showAlert('फिल्टर लोड करने में विफल: ' + error.message, 'danger');
         });
 }
@@ -160,7 +154,6 @@ function populateBlockFilter() {
             }
         })
         .catch(error => {
-            console.error('Error loading blocks:', error);
         });
 }
 
@@ -186,17 +179,14 @@ function loadMembers() {
         url += `&block=${encodeURIComponent(currentBlock)}`;
     }
 
-    console.log('Loading members from:', url);
     showLoading();
 
     fetch(url)
         .then(response => {
-            console.log('API response status:', response.status);
             if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
             return response.json();
         })
         .then(data => {
-            console.log('Members data:', data);
             if (data.success) {
                 populateMembersGrid(data.data);
                 updateStats(data.data.stats);
@@ -211,7 +201,6 @@ function loadMembers() {
             }
         })
         .catch(error => {
-            console.error('Error:', error);
             showAlert('सदस्य डेटा लोड करने में त्रुटि: ' + error.message, 'danger');
             showEmptyState();
         })
@@ -352,6 +341,14 @@ function openMemberDetails(member) {
         <div class="detail-group">
             <div class="detail-label">पिता/पति का नाम</div>
             <div class="detail-value">${member.father_husband_name || 'N/A'}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Nominee का नाम</div>
+            <div class="detail-value">${member.nominee_name || 'N/A'}</div>
+        </div>
+        <div class="detail-group">
+            <div class="detail-label">Nominee का संबंध</div>
+            <div class="detail-value">${member.nominee_relation || 'N/A'}</div>
         </div>
         <div class="detail-group">
             <div class="detail-label">Full Address</div>

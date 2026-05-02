@@ -26,21 +26,21 @@ try {
         PDO::ATTR_EMULATE_PREPARES => false,
     ]);
     
-    // Auto-create core_team_members table if not exists
-    $createTableSQL = "CREATE TABLE IF NOT EXISTS `core_team_members` (
-      `id` INT AUTO_INCREMENT PRIMARY KEY,
-      `full_name` VARCHAR(100) NOT NULL,
-      `mobile_number` VARCHAR(20) NOT NULL,
-      `post_name` VARCHAR(100) NOT NULL,
-      `photo` VARCHAR(255) NOT NULL,
-      `photo_size` INT,
-      `uploaded_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      `status` ENUM('active', 'inactive') DEFAULT 'active',
-      `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+    // // Auto-create core_team_members table if not exists
+    // $createTableSQL = "CREATE TABLE IF NOT EXISTS `core_team_members` (
+    //   `id` INT AUTO_INCREMENT PRIMARY KEY,
+    //   `full_name` VARCHAR(100) NOT NULL,
+    //   `mobile_number` VARCHAR(20) NOT NULL,
+    //   `post_name` VARCHAR(100) NOT NULL,
+    //   `photo` VARCHAR(255) NOT NULL,
+    //   `photo_size` INT,
+    //   `uploaded_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    //   `status` ENUM('active', 'inactive') DEFAULT 'active',
+    //   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    //   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    // ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
     
-    $pdo->exec($createTableSQL);
+    // $pdo->exec($createTableSQL);
     
     // Store PDO in globals for access in other files
     $GLOBALS['pdo'] = $pdo;

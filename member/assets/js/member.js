@@ -1,6 +1,6 @@
 // Member Dashboard JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Member Dashboard लोड हो रहा है...');
+    
     
     // Initialize sidebar toggle
     initializeSidebarToggle();
@@ -63,6 +63,18 @@ function populateMemberData(data) {
     document.getElementById('paymentStatus').className = 
         data.payment_verified === 1 ? 'badge bg-success' : 'badge bg-danger';
     
+    // Populate info card
+    document.getElementById('memberID2').textContent = data.member_id || 'N/A';
+    document.getElementById('infoGender').textContent = data.gender || 'N/A';
+    document.getElementById('infoMobile').textContent = data.mobile_number || 'N/A';
+    document.getElementById('infoDistrict').textContent = data.district || 'N/A';
+    document.getElementById('infoBlock').textContent = data.block || 'N/A';
+    document.getElementById('infoFather').textContent = data.father_husband_name || 'N/A';
+    document.getElementById('infoNominee').textContent = data.nominee_name || 'N/A';
+    document.getElementById('infoPoll').textContent = data.poll_option || 'N/A';
+    document.getElementById('infoJoinDate').textContent = data.created_at || 'N/A';
+    document.getElementById('infoAddress').textContent = data.permanent_address || 'N/A';
+    
     // Populate profile section
     populateProfileData(data);
     
@@ -103,7 +115,13 @@ function populateMembershipData(data) {
         'membershipBlock': data.block,
         'membershipUTR': data.utr_number,
         'membershipPaymentStatus': data.payment_status,
-        'membershipJoinDate': data.created_at
+        'membershipJoinDate': data.created_at,
+        'membershipPoll': data.poll_option,
+        'membershipNominee': data.nominee_name,
+        'membershipGender': data.gender,
+        'membershipMobile': data.mobile_number,
+        'membershipAddress': data.permanent_address,
+        'membershipUniqueId': data.member_id
     };
     
     Object.keys(membershipInfo).forEach(elementId => {
@@ -169,8 +187,6 @@ function closeSidebarOnClickOutside() {
 
 // Load section content
 function loadSection(sectionName) {
-    console.log('सेक्शन लोड कर रहे हैं:', sectionName);
-    
     // Hide all sections
     document.querySelectorAll('.content-box').forEach(box => {
         box.classList.remove('active');

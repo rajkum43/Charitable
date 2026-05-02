@@ -91,9 +91,18 @@ require_once '../includes/config.php';
                             <div class="row">
                                 <div class="col-md-6">
                                     <p><strong>नाम:</strong> <span id="memberName">-</span></p>
+                                    <p><strong>सदस्य ID:</strong> <span id="memberID2">-</span></p>
+                                    <p><strong>लिंग:</strong> <span id="infoGender">-</span></p>
+                                    <p><strong>मोबाइल:</strong> <span id="infoMobile">-</span></p>
+                                    <p><strong>जिला:</strong> <span id="infoDistrict">-</span></p>
+                                    <p><strong>ब्लॉक:</strong> <span id="infoBlock">-</span></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>सदस्य ID:</strong> <span id="memberID2">-</span></p>
+                                    <p><strong>पिता/पति का नाम:</strong> <span id="infoFather">-</span></p>
+                                    <p><strong>नामांकित व्यक्ति:</strong> <span id="infoNominee">-</span></p>
+                                    <p><strong>वर्तमान पोल:</strong> <span id="infoPoll">-</span></p>
+                                    <p><strong>शामिल होने की तारीख:</strong> <span id="infoJoinDate">-</span></p>
+                                    <p><strong>स्थायी पता:</strong> <span id="infoAddress">-</span></p>
                                 </div>
                             </div>
                         </div>
@@ -232,6 +241,30 @@ require_once '../includes/config.php';
                                 <tr>
                                     <td class="fw-bold">शामिल होने की तारीख</td>
                                     <td id="membershipJoinDate">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">वर्तमान पोल</td>
+                                    <td id="membershipPoll">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">नामांकित व्यक्ति का नाम</td>
+                                    <td id="membershipNominee">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">लिंग</td>
+                                    <td id="membershipGender">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">मोबाइल नंबर</td>
+                                    <td id="membershipMobile">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">स्थायी पता</td>
+                                    <td id="membershipAddress">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">यूनिक ID</td>
+                                    <td id="membershipUniqueId">-</td>
                                 </tr>
                             </tbody>
                         </table>

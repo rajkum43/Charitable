@@ -12,35 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroCarousel) {
         const carousel = new bootstrap.Carousel(heroCarousel, {
             interval: 5000,
-            pause: 'hover',
-            ride: true
+            pause: 'hover'
         });
+        // Start the carousel cycling
+        carousel.cycle();
     }
-});
-
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Hero Slider
-    const heroSwiper = new Swiper('.heroSwiper', {
-        loop: true,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        effect: 'fade',
-        fadeEffect: {
-            crossFade: true
-        },
-        speed: 1000,
-    });
 
     // Initialize Testimonial Slider
     const testimonialSlides = document.querySelectorAll('.testimonialSwiper .swiper-slide').length;

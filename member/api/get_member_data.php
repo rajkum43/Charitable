@@ -38,7 +38,8 @@ try {
             father_husband_name, date_of_birth, mobile_number, 
             gender, occupation, office_name, office_address, 
             state, district, block, permanent_address, email, 
-            utr_number, payment_verified, status, created_at 
+            utr_number, payment_verified, status, created_at,
+            poll_option, nominee_name
         FROM members 
         WHERE member_id = ?
     ");

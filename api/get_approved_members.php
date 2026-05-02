@@ -78,7 +78,7 @@ try {
     // Get members
     $query = "SELECT 
                 id, member_id, full_name, district, block, status, created_at, poll_option, 
-                permanent_address, state, father_husband_name
+                permanent_address, state, father_husband_name, nominee_name, nominee_relation
               FROM members 
               WHERE " . $where_clause . "
               ORDER BY created_at DESC 
