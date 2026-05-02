@@ -12,6 +12,7 @@ if (strpos($host, 'localhost') !== false || strpos($host, '127.0.0.1') !== false
 } else {
     $root_path = '/';
 }
+// अब $root_path का उपयोग करके लिंक बनाएं
 ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="icon" type="image/png" href="<?php echo $root_path; ?>assets/images/favicon.png">
