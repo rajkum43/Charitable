@@ -49,6 +49,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="referrals.php" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>रेफरल</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="index.php" class="nav-link" data-section="payment">
                         <i class="fas fa-credit-card"></i>
                         <span>भुगतान</span>

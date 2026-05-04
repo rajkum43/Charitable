@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load member data on page load
     loadMemberData();
     
+    // Load referral count
+    loadReferralCount();
+    
+    // Load active donations
+    loadActiveDonations();
+    
     // Set up event listeners
     setupEventListeners();
     
@@ -17,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Load member data
 function loadMemberData() {
-    fetch('api/get_member_data.php')
+    fetch('../api/get_member_data.php')
         .then(response => {
             if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
             return response.json();
@@ -36,6 +42,27 @@ function loadMemberData() {
         .catch(error => {
             console.error('Error:', error);
             showAlert('डेटा लोड करने में त्रुटि: ' + error.message, 'danger');
+        });
+}
+
+// Load referral count
+function loadReferralCount() {
+    fetch('../api/get_member_referral_count.php')
+        .then(response => {
+            if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                document.getElementById('referralCount').textContent = data.referral_count || 0;
+            } else {
+                console.error('Error loading referral count:', data.error);
+                document.getElementById('referralCount').textContent = '0';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('referralCount').textContent = '0';
         });
 }
 
@@ -285,7 +312,7 @@ function saveFieldChange(fieldId, apiField, value) {
     formData.append('field', apiField);
     formData.append('value', value);
     
-    fetch('api/update_profile.php', {
+    fetch('../api/update_profile.php', {
         method: 'POST',
         body: formData
     })
@@ -329,7 +356,7 @@ function logoutMember() {
         return;
     }
     
-    fetch('api/logout.php', {
+    fetch('../api/logout.php', {
         method: 'POST'
     })
     .then(response => {
@@ -396,6 +423,214 @@ document.addEventListener('click', function(event) {
         }
     }
 });
+
+// ===========================
+// Active Donations Functionality
+// ===========================
+
+// Global variables for donations
+let donationsData = [];
+
+// Load active donations
+function loadActiveDonations() {
+    const container = document.getElementById('activeDonationsContainer');
+    
+    if (!container) return;
+    
+    fetch(window.API_URL + 'get_member_donations.php', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                donationsData = data.data.donations;
+                renderActiveDonations();
+            } else {
+                console.error('API Error:', data.message);
+                showNoActiveDonations();
+            }
+        })
+        .catch(error => {
+            console.error('Error loading donations:', error);
+            showNoActiveDonations();
+        });
+}
+
+// Render active donations
+function renderActiveDonations() {
+    const container = document.getElementById('activeDonationsContainer');
+    
+    if (!container || donationsData.length === 0) {
+        showNoActiveDonations();
+        return;
+    }
+    
+    // Clear loading state
+    container.innerHTML = '';
+    
+    // Render up to 3 donation cards (to keep dashboard concise)
+    const maxCards = 3;
+    const cardsToShow = donationsData.slice(0, maxCards);
+    
+    cardsToShow.forEach((donation, index) => {
+        const card = createDonationCard(donation);
+        container.appendChild(card);
+    });
+    
+    // If there are more than 3, add a "View All" link
+    if (donationsData.length > maxCards) {
+        const viewAllDiv = document.createElement('div');
+        viewAllDiv.className = 'text-center mt-3';
+        viewAllDiv.innerHTML = `
+            <a href="member_donation.php" class="btn btn-outline-primary">
+                <i class="fas fa-eye me-2"></i>सभी दान अवसर देखें (${donationsData.length - maxCards} और)
+            </a>
+        `;
+        container.appendChild(viewAllDiv);
+    }
+}
+
+// Create donation card element (simplified version)
+function createDonationCard(donation) {
+    const isDeathClaim = donation.application_type === 'Death_Claims' || donation.application_type === 'Death';
+    const cardTypeClass = isDeathClaim ? 'death' : 'vivah';
+    const cardIcon = isDeathClaim ? 'fa-heart-broken' : 'fa-ring';
+    const cardTitle = isDeathClaim ? 'मृत्यु सहायता' : 'बेटी विवाह सहायता';
+    const badgeText = isDeathClaim ? 'मृत्यु दावा' : 'विवाह सहायता';
+    
+    // Calculate days remaining
+    const expireDate = new Date(donation.expire_date);
+    const today = new Date();
+    const daysRemaining = Math.ceil((expireDate - today) / (1000 * 60 * 60 * 24));
+    const isExpiringSoon = daysRemaining < 2;
+    
+    const card = document.createElement('div');
+    card.className = 'donation-card';
+    card.innerHTML = `
+        <!-- Card Header -->
+        <div class="donation-card-header ${cardTypeClass}">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h5 class="mb-2">
+                        <i class="fas fa-${cardIcon} me-2"></i>${cardTitle}
+                    </h5>
+                    <div class="donation-badge">${badgeText}</div>
+                </div>
+                <div class="text-end">
+                    <div class="poll-option-badge">${escapeHtml(donation.poll_option)}</div>
+                    <small class="d-block mt-2">पोल विकल्प</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="donation-body">
+            <!-- Main Info -->
+            <div class="info-row">
+                <div class="info-item">
+                    <div class="info-label">${isDeathClaim ? 'दिवंगत सदस्य नाम' : 'बेटी का नाम'}</div>
+                    <div class="info-value">
+                        ${escapeHtml(isDeathClaim ? 
+                            (donation.full_name || donation.deceased_name || 'N/A') : 
+                            donation.bride_name
+                        )}
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">${isDeathClaim ? 'मृत्यु तारीख' : 'विवाह तारीख'}</div>
+                    <div class="info-value">${formatDate(isDeathClaim ? donation.death_date : donation.wedding_date)}</div>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="info-row">
+                <div class="info-item">
+                    <div class="info-label">आवेदनकर्ता का नाम</div>
+                    <div class="info-value">
+                        ${escapeHtml(isDeathClaim ? 
+                            (donation.applicant_name || donation.nominee_name || 'N/A') : 
+                            donation.member_name
+                        )}
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">स्थान</div>
+                    <div class="info-value">
+                        ${escapeHtml(isDeathClaim ? 
+                            'N/A' : 
+                            ((donation.city || '') + ', ' + (donation.district || ''))
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Poll Timeline -->
+            <div class="mt-3 pt-3 border-top">
+                <small class="text-muted">
+                    <i class="fas fa-calendar-alt me-2"></i>
+                    <strong>दान अवधि:</strong>
+                    <span class="date-badge">${formatDate(donation.start_date)}</span>
+                    से
+                    <span class="date-badge ${isExpiringSoon ? 'expire-soon' : ''}">
+                        ${formatDate(donation.expire_date)}
+                    </span>
+                    <span class="badge bg-warning text-dark ms-2">${daysRemaining} दिन बाकी</span>
+                </small>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-3 d-flex gap-2 flex-wrap">
+                <a href="member_donation.php" class="btn btn-primary btn-sm flex-grow-1">
+                    <i class="fas fa-hand-holding-heart me-2"></i>दान करें
+                </a>
+            </div>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Show no active donations message
+function showNoActiveDonations() {
+    const container = document.getElementById('activeDonationsContainer');
+    if (!container) return;
+    
+    container.innerHTML = `
+        <div class="text-center py-5">
+            <i class="fas fa-hand-holding-heart fa-3x text-muted mb-3"></i>
+            <h5 class="text-muted">कोई सक्रिय दान अवसर नहीं</h5>
+            <p class="text-muted">वर्तमान में आपके पोल विकल्प के लिए कोई सक्रिय दान अनुरोध नहीं हैं।</p>
+            <a href="member_donation.php" class="btn btn-outline-primary">
+                <i class="fas fa-eye me-2"></i>सभी अवसर देखें
+            </a>
+        </div>
+    `;
+}
+
+// Utility functions
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('hi-IN', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+}
 
 // Handle window resize
 window.addEventListener('resize', function() {

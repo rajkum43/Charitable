@@ -76,6 +76,11 @@ $base_path = $is_approval_page ? '../' : '';
                 <span>Edit Member Details</span>
             </a>
 
+            <a href="<?php echo $base_path; ?>referred-members.php" class="nav-item <?php echo ($current_page === 'referred-members.php') ? 'active' : ''; ?>">
+                <i class="fas fa-users"></i>
+                <span>Referral Report</span>
+            </a>
+
             <a href="<?php echo $base_path; ?>update-member-created-date.php" class="nav-item <?php echo ($current_page === 'update-member-created-date.php') ? 'active' : ''; ?>">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Update Member Date</span>

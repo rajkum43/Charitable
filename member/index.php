@@ -23,6 +23,8 @@ require_once '../includes/config.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Member Dashboard CSS -->
     <link rel="stylesheet" href="assets/css/member.css">
+    <!-- Member Donation CSS -->
+    <link rel="stylesheet" href="assets/css/member_donation.css">
 </head>
 <body>
 
@@ -80,12 +82,39 @@ require_once '../includes/config.php';
                             <div class="stat-value" id="joinDate">-</div>
                             <div class="stat-label">शामिल होने की तारीख</div>
                         </div>
+
+                        <div class="stat-card secondary">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-value" id="referralCount">0</div>
+                            <div class="stat-label">रेफरल संख्या</div>
+                        </div>
+                    </div>
+
+                    <!-- Active Donations Section -->
+                    <div class="mt-4">
+                        <h3 class="mb-3"><i class="fas fa-hand-holding-heart me-2"></i>सक्रिय दान अवसर</h3>
+                        <p class="text-muted">आपके पोल विकल्प के अनुसार सक्रिय दान अनुरोध।</p>
+                        
+                        <div id="activeDonationsContainer" class="donation-cards-section">
+                            <!-- Donation cards will be loaded here -->
+                            <div class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">लोड हो रहा है...</span>
+                                </div>
+                                <p class="mt-2 text-muted">दान डेटा लोड हो रहा है...</p>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Member Info Card -->
                     <div class="card mt-4">
-                        <div class="card-header bg-primary text-white">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-user me-2"></i>आपकी जानकारी</h5>
+                            <a href="referrals.php" class="btn btn-light btn-sm">
+                                <i class="fas fa-users me-1"></i>रेफरल देखें
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -370,6 +399,8 @@ require_once '../includes/config.php';
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Config JS -->
+    <script src="../assets/js/config.js"></script>
     <!-- Member Dashboard JS -->
     <script src="assets/js/member.js"></script>
 </body>
