@@ -284,6 +284,7 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                                     <div class="form-group">
                                         <label for="wedding_date" class="required-field">विवाह की तारीख</label>
                                         <input type="date" class="form-control" id="wedding_date" name="wedding_date" required>
+                                        <small class="form-text text-muted mt-1">आवेदन आज से 1 साल पहले या 1 साल बाद तक की विवाह तारीख के लिए किया जा सकता है</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

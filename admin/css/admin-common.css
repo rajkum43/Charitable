@@ -19,7 +19,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    padding: 0;
+    padding: 56px 0 0 0;
     width: 100%;
     overflow-x: hidden;
     box-sizing: border-box;
@@ -32,17 +32,25 @@ body {
     flex-shrink: 0;
     width: 100%;
     overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
 }
 
 .main-wrapper {
     display: flex;
     flex: 1;
+    position: relative;
     margin-left: 250px;
     flex-direction: column;
     min-height: calc(100vh - 56px);
-    transition: margin-left 0.3s ease;
+    transition: margin-left 0.3s ease, width 0.3s ease;
     width: calc(100% - 250px);
     overflow-x: hidden;
+    box-sizing: border-box;
+    min-width: 0;
 }
 
 .main-wrapper.sidebar-collapsed {
@@ -58,6 +66,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    box-sizing: border-box;
 }
 
 /* Mobile main-content styling */
@@ -264,11 +273,19 @@ body {
     }
 
     .main-wrapper {
-        width: 100%;
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        box-sizing: border-box;
+    }
+
+    .main-wrapper.sidebar-collapsed {
+        margin-left: 70px;
+        width: calc(100% - 70px);
     }
 
     .main-content {
         width: 100%;
+        box-sizing: border-box;
     }
 
     body::before {
@@ -278,6 +295,16 @@ body {
 
 /* Override collapsed styles on mobile - always show text */
 @media (max-width: 768px) {
+    .main-wrapper {
+        margin-left: 0;
+        width: 100vw !important;
+    }
+
+    .main-wrapper.sidebar-collapsed {
+        margin-left: 0;
+        width: 100vw !important;
+    }
+
     .sidebar.collapsed .sidebar-nav span,
     .sidebar.collapsed .sidebar-brand h5,
     .sidebar.collapsed .sidebar-brand small,

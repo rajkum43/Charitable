@@ -3,7 +3,7 @@
  * Handles search, update, and delete operations
  */
 
-const BASE_URL = window.appConfig?.baseUrl || '/Charitable';
+const BASE_URL = window.appConfig?.baseUrl || '';
 let allPolls = [];
 
 /**
@@ -138,10 +138,6 @@ function renderTable(polls) {
                             data-poll-id="${poll.id}" type="button">
                             <i class="fas fa-save"></i> Update
                         </button>
-                        <button class="btn btn-sm btn-danger delete-btn" 
-                            data-poll-id="${poll.id}" type="button">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
                     </div>
                 </td>
             </tr>
@@ -162,10 +158,7 @@ function attachEventListeners() {
         btn.addEventListener('click', updatePoll);
     });
 
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.removeEventListener('click', deletePoll);
-        btn.addEventListener('click', deletePoll);
-    });
+
 }
 
 /**

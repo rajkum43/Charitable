@@ -56,7 +56,10 @@ if (empty($sliders)) {
     <div id="heroCarousel" class="carousel slide" data-bs-interval="5000">
         <div class="carousel-inner">
             <?php foreach ($sliders as $index => $slider): ?>
-                <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>" id="slider-<?php echo $index; ?>" style="background-image: url('<?php echo htmlspecialchars($slider['image']); ?>'); background-size: cover; background-position: center; background-attachment: scroll;">
+                <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>" id="slider-<?php echo $index; ?>">
+                    <!-- Background Image -->
+                    <img src="<?php echo htmlspecialchars($slider['image']); ?>" alt="Hero Slider" class="slider-img">
+                    
                     <!-- Overlay -->
                     <div class="carousel-overlay"></div>
                     

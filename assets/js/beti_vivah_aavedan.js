@@ -1,6 +1,109 @@
 // Beti Vivah Aavedan JavaScript
 
-// Member Verification Function (for non-logged-in users)
+// Initialize date constraints when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Initial call
+    setWeddingDateConstraints();
+    
+    // Call again after a short delay to ensure DOM is fully ready
+    setTimeout(setWeddingDateConstraints, 500);
+
+    // Initialize auto-capitalization for text inputs
+    initializeAutoCapitalization();
+});
+
+// Auto-capitalization functions
+function initializeAutoCapitalization() {
+    // Text inputs that need auto-capitalization (first letter of each word)
+    const capitalizeInputs = [
+        'bride_name',
+        'groom_name',
+        'groom_occupation',
+        'groom_father_name',
+        'branch_name',
+        'bank_name',
+        'account_holder_name',
+        'remarks'
+    ];
+
+    // Add event listeners for auto-capitalization
+    capitalizeInputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.addEventListener('input', function() {
+                this.value = capitalizeWords(this.value);
+            });
+            input.addEventListener('blur', function() {
+                this.value = capitalizeWords(this.value);
+            });
+        }
+    });
+
+    // IFSC code should be uppercase
+    const ifscInput = document.getElementById('ifsc_code');
+    if (ifscInput) {
+        ifscInput.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+        ifscInput.addEventListener('blur', function() {
+            this.value = this.value.toUpperCase();
+        });
+    }
+}
+
+// Function to capitalize first letter of each word
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, function(char) {
+        return char.toUpperCase();
+    });
+}
+
+// Also set constraints when the form becomes visible
+document.addEventListener('shown.bs.tab', function(e) {
+    if (e.target && e.target.getAttribute('data-bs-target') === '#couple') {
+        setWeddingDateConstraints();
+    }
+});
+
+// Set wedding date min and max constraints (1 year before and 1 year after today)
+function setWeddingDateConstraints() {
+    const weddingDateInput = document.getElementById('wedding_date');
+    if (!weddingDateInput) {
+        console.warn('Wedding date input not found');
+        return;
+    }
+
+    const today = new Date();
+    
+    // Calculate 1 year before today
+    const minDate = new Date(today);
+    minDate.setFullYear(minDate.getFullYear() - 1);
+    
+    // Calculate 1 year after today
+    const maxDate = new Date(today);
+    maxDate.setFullYear(maxDate.getFullYear() + 1);
+    
+    // Format dates as YYYY-MM-DD for HTML5 date input
+    const minDateStr = formatDateForInput(minDate);
+    const maxDateStr = formatDateForInput(maxDate);
+    
+    console.log('Setting date constraints:', { minDateStr, maxDateStr, today: formatDateForInput(today) });
+    
+    // Set min and max attributes
+    weddingDateInput.setAttribute('min', minDateStr);
+    weddingDateInput.setAttribute('max', maxDateStr);
+    
+    // Also update the title for better UX
+    weddingDateInput.setAttribute('title', `Please select a date between ${minDateStr} and ${maxDateStr}`);
+}
+
+// Helper function to format date as YYYY-MM-DD
+function formatDateForInput(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
 function verifyMember() {
     const memberId = document.getElementById('search_member_id').value.trim();
     
@@ -139,14 +242,22 @@ function validateGroomAge() {
     return true;
 }
 
-// Validate Wedding Date (must be future)
+// Validate Wedding Date (must be within 1 year before and 1 year after today)
 function validateWeddingDate() {
     const weddingDate = new Date(document.getElementById('wedding_date').value);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
-    if (weddingDate <= today) {
-        alert('विवाह की तारीख आज से आगे की होनी चाहिए');
+    // Calculate 1 year before today
+    const oneYearBefore = new Date(today);
+    oneYearBefore.setFullYear(oneYearBefore.getFullYear() - 1);
+    
+    // Calculate 1 year after today
+    const oneYearAfter = new Date(today);
+    oneYearAfter.setFullYear(oneYearAfter.getFullYear() + 1);
+    
+    if (weddingDate < oneYearBefore || weddingDate > oneYearAfter) {
+        alert('विवाह की तारीख आज से 1 साल पहले या 1 साल बाद तक हो सकती है');
         return false;
     }
     return true;

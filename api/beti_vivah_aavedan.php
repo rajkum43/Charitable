@@ -240,11 +240,22 @@ try {
             exit;
         }
 
-        // Wedding date must be in future
-        if ($wedding_date_obj <= $today) {
+        // Wedding date validation: must be within 1 year before and 1 year after today
+        $one_year_before = clone $today;
+        $one_year_before->modify('-1 year');
+        
+        $one_year_after = clone $today;
+        $one_year_after->modify('+1 year');
+        
+        if ($wedding_date_obj < $one_year_before || $wedding_date_obj > $one_year_after) {
             http_response_code(400);
-            $response['message'] = 'विवाह की तारीख आज से आगे की होनी चाहिए';
-            $response['debug'] = ['wedding_date' => $wedding_date, 'today' => $today->format('Y-m-d')];
+            $response['message'] = 'विवाह की तारीख आज से 1 साल पहले या 1 साल बाद तक हो सकती है';
+            $response['debug'] = [
+                'wedding_date' => $wedding_date,
+                'allowed_from' => $one_year_before->format('Y-m-d'),
+                'allowed_to' => $one_year_after->format('Y-m-d'),
+                'today' => $today->format('Y-m-d')
+            ];
             echo json_encode($response);
             exit;
         }

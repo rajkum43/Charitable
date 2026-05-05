@@ -81,6 +81,8 @@ setInterval(updateTime, 60000);
     margin-top: auto;
     flex-shrink: 0;
     position: static;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .admin-footer a {
@@ -106,9 +108,7 @@ setInterval(updateTime, 60000);
 /* Desktop styles */
 @media (min-width: 769px) {
     .admin-footer {
-        margin-left: 250px;
-        width: calc(100% - 250px);
-        position: static;
+        width: 100%;
     }
 }
 

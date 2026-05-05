@@ -162,10 +162,6 @@ $conn->close();
                                                         data-poll-id="<?php echo $poll['id']; ?>" type="button">
                                                         <i class="fas fa-save"></i> Update
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger delete-btn" 
-                                                        data-poll-id="<?php echo $poll['id']; ?>" type="button">
-                                                        <i class="fas fa-trash"></i> Delete
-                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>

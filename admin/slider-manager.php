@@ -11,6 +11,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Handle fetch slider data for editing
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action']) && $_GET['action'] == 'get') {
+    $id = intval($_GET['id']);
+    $result = $conn->query("SELECT * FROM sliders WHERE id = $id");
+    if ($result && $row = $result->fetch_assoc()) {
+        echo json_encode(['success' => true, 'data' => $row]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Slider not found']);
+    }
+    exit;
+}
+
 // Handle delete
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'delete') {
     $id = intval($_POST['id']);
@@ -322,8 +334,12 @@ if ($result) {
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">Image</label>
-                            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
-                            <small class="text-secondary">Recommended size: 1920x600px</small>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                            <small class="text-secondary">Recommended size: 1920x600px (Required for new slider, optional for edit)</small>
+                            <div id="currentImagePreview" style="display: none; margin-top: 10px;">
+                                <p class="text-muted">Current image:</p>
+                                <img id="currentImage" src="" alt="Current slider image" style="max-width: 200px; border-radius: 5px;">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -341,6 +357,16 @@ if ($result) {
     <script>
         const modal = new bootstrap.Modal(document.getElementById('addSliderModal'));
         const form = document.getElementById('sliderForm');
+
+        // Reset form when modal is hidden
+        document.getElementById('addSliderModal').addEventListener('hidden.bs.modal', function() {
+            form.reset();
+            document.getElementById('modalTitle').textContent = 'Add New Slider';
+            document.getElementById('formAction').value = 'add';
+            document.getElementById('sliderId').value = '';
+            document.getElementById('image').setAttribute('required', 'required');
+            document.getElementById('currentImagePreview').style.display = 'none';
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -365,8 +391,40 @@ if ($result) {
         });
 
         function editSlider(id) {
-            // This would require fetching slider details via AJAX
-            alert('Edit functionality - fetch slider data and populate form');
+            // Fetch slider data via AJAX
+            fetch('?action=get&id=' + id)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const slider = data.data;
+                        
+                        // Populate form fields
+                        document.getElementById('sliderId').value = slider.id;
+                        document.getElementById('heading').value = slider.heading;
+                        document.getElementById('description').value = slider.description;
+                        document.getElementById('button_text').value = slider.button_text;
+                        document.getElementById('button_link').value = slider.button_link;
+                        document.getElementById('formAction').value = 'edit';
+                        
+                        // Make image optional for edit
+                        document.getElementById('image').removeAttribute('required');
+                        
+                        // Show current image preview
+                        document.getElementById('currentImage').src = '../assets/images/slider/' + slider.image;
+                        document.getElementById('currentImagePreview').style.display = 'block';
+                        
+                        // Update modal title
+                        document.getElementById('modalTitle').textContent = 'Edit Slider';
+                        
+                        // Show modal
+                        modal.show();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error fetching slider data: ' + error.message);
+                });
         }
 
         function deleteSlider(id) {

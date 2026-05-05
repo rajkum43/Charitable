@@ -314,70 +314,51 @@ nav .navbar{
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: auto;
 }
 
-.hero-slider .carousel {
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
+/* Carousel */
 .hero-slider .carousel-inner {
     height: 60vh;
-    position: relative;
 }
 
 .hero-slider .carousel-item {
+    position: relative;
     height: 60vh;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     opacity: 0;
-    transition: opacity 0.6s ease-in-out !important;
-    z-index: 1;
-    visibility: hidden;
+    transition: opacity 0.6s ease-in-out;
 }
 
 .hero-slider .carousel-item.active {
     opacity: 1;
-    position: relative;
-    z-index: 5;
-    visibility: visible;
 }
 
+/* ✅ MAIN IMAGE FIX */
+.slider-img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;   /* 👈 stretch करेगा लेकिन cut नहीं होगा */
+}
+
+/* Overlay */
 .carousel-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0,0,0,0.35);
     z-index: 2;
-    pointer-events: none;
 }
 
+/* Content */
 .hero-slider .carousel-caption {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: none !important;
-    padding: 0 !important;
-    width: 100%;
-    height: 100%;
     z-index: 3;
+}
     display: flex;
     align-items: center;
     justify-content: center;
@@ -556,17 +537,6 @@ nav .navbar{
     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
 }
 
-@keyframes slideInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 @keyframes slideInUp {
     from {
         opacity: 0;
@@ -578,57 +548,18 @@ nav .navbar{
     }
 }
 
-/* Responsive adjustments for slider */
-@media (max-width: 768px) {
-    .hero-slider .carousel-inner {
-        height: 50vh;
-    }
-
+/* Responsive */
+@media (max-width:768px){
+    .hero-slider .carousel-inner,
     .hero-slider .carousel-item {
         height: 50vh;
-    }
-
-    .slider-heading {
-        font-size: 2rem !important;
-        padding: 0 0.5rem;
-    }
-    
-    .slider-description {
-        padding: 0 0.5rem;
-        font-size: 1rem !important;
-        margin-top: 0.5rem;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 1.5rem !important;
-    }
-    
-    .hero-buttons .btn {
-        width: 100%;
-        max-width: 280px;
-        padding: 0.75rem 1.5rem !important;
-        font-size: 0.95rem !important;
     }
 }
 
-@media (max-width: 576px) {
-    .hero-slider .carousel-inner {
-        height: 45vh;
-    }
-
+@media (max-width:576px){
+    .hero-slider .carousel-inner,
     .hero-slider .carousel-item {
         height: 45vh;
-    }
-
-    .slider-heading {
-        font-size: 1.5rem !important;
-    }
-
-    .hero-buttons .btn {
-        padding: 0.65rem 1.2rem !important;
-        font-size: 0.85rem !important;
     }
 }
 
@@ -1494,29 +1425,6 @@ nav .navbar{
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
-/* ============================================
-   BOOTSTRAP CAROUSEL FIXES - Smooth Transitions
-   ============================================ */
-
-/* Ensure only active slide shows content */
-.hero-slider .carousel-item {
-    display: none !important;
-}
-
-.hero-slider .carousel-item.active {
-    display: flex !important;
-    position: relative;
-}
-
-/* Smooth fade transition */
-.carousel.slide .carousel-item {
-    transition: opacity 0.6s ease-in-out;
-}
-
-/* Override Bootstrap carousel positioning */
-.hero-slider .carousel-caption {
-    position: absolute !important;
-    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -1543,11 +1451,6 @@ nav .navbar{
 .hero-slider .carousel-caption p {
     margin: 0;
     padding: 0;
-}
-
-/* Prevent text selection during transitions */
-.hero-slider .carousel-inner {
-    user-select: none;
 }
 
 /* ===== MOBILE TOGGLE FIXES ===== */
