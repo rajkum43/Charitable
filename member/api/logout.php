@@ -28,9 +28,24 @@ try {
     
     session_destroy();
 
+    // Detect base URL dynamically
+    $host = $_SERVER['HTTP_HOST'];
+    $script_name = $_SERVER['SCRIPT_NAME'];
+    $base_path = dirname(dirname(dirname($script_name))); // Remove /member/api from path
+    
+    if ($host === 'localhost') {
+        $protocol = 'http';
+        $base_url = $protocol . '://' . $host . $base_path;
+    } else {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $base_url = $protocol . '://' . $host . $base_path;
+    }
+    
+    $login_url = $base_url . '/pages/login.php';
+
     $response['success'] = true;
     $response['message'] = 'आप सफलतापूर्वक लॉगआउट हो गए';
-    $response['redirect'] = '../pages/login.php';
+    $response['redirect'] = $login_url;
 
     echo json_encode($response);
 

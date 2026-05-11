@@ -1,3 +1,10 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$sidebarMemberName = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'सदस्य';
+$sidebarMemberId = isset($_SESSION['member_id']) ? $_SESSION['member_id'] : '...';
+?>
 <!-- Member Dashboard Sidebar -->
 <aside class="sidebar" id="sidebar">
     <!-- Brand Section -->
@@ -14,8 +21,8 @@
             <i class="fas fa-user-circle"></i>
         </div>
         <div class="member-info">
-            <h6 id="sidebarMemberName" class="mb-0">सदस्य</h6>
-            <small id="sidebarMemberId" class="text-muted d-block">ID: ...</small>
+            <h6 id="sidebarMemberName" class="mb-0"><?php echo htmlspecialchars($sidebarMemberName); ?></h6>
+            <small id="sidebarMemberId" class="text-muted d-block">ID: <?php echo htmlspecialchars($sidebarMemberId); ?></small>
         </div>
     </div>
 

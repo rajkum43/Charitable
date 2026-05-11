@@ -904,3 +904,28 @@ async function handleTransactionSubmit(event, donationId, claimNumber, applicati
         submitBtn.innerHTML = '<i class="fas fa-cloud-upload-alt me-2"></i>रसीद जमा करें';
     }
 }
+
+function logoutMember() {
+    if (!confirm('क्या आप लॉगआउट करना चाहते हैं?')) {
+        return;
+    }
+    
+    fetch('api/logout.php', {
+        method: 'POST'
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            window.location.href = data.redirect;
+        } else {
+            alert(data.message || 'लॉगआउट विफल');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('लॉगआउट में त्रुटि: ' + error.message);
+    });
+}

@@ -18,7 +18,7 @@ function loadSection(sectionName) {
 // Logout function
 function logoutMember() {
     if (confirm('क्या आप लॉगआउट करना चाहते हैं?')) {
-        window.location.href = '../includes/logout.php';
+        window.location.href = '../api/logout.php';
     }
 }
 

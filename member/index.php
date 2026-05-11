@@ -377,9 +377,9 @@ require_once '../includes/config.php';
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label class="form-label">पासवर्ड बदलें</label>
-                                    <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    <a href="change-password.php" class="btn btn-outline-primary w-100">
                                         <i class="fas fa-key me-2"></i>पासवर्ड बदलें
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">दो-फैक्टर प्रमाणीकरण</label>
@@ -417,7 +417,7 @@ require_once '../includes/config.php';
     <script src="assets/js/member.js"></script>
 
     <!-- Renewal Modal -->
-    <div class="modal fade" id="renewalModal" tabindex="-1" aria-labelledby="renewalModalLabel" aria-hidden="true">
+    <div class="modal fade" id="renewalModal" tabindex="-1" aria-labelledby="renewalModalLabel" aria-hidden="true" data-bs-backdrop="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-warning">

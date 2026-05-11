@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$navbarMemberName = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'सदस्य';
+?>
 <!-- Member Dashboard Navbar -->
 <nav class="navbar navbar-member">
     <div class="navbar-container">
@@ -42,7 +48,7 @@
                         <i class="fas fa-user-circle"></i>
                     </div>
                     <span class="d-none d-md-inline-block ms-2">
-                        <small id="navbarMemberName">सदस्य</small>
+                        <small id="navbarMemberName"><?php echo htmlspecialchars($navbarMemberName); ?></small>
                     </span>
                     <i class="fas fa-chevron-down ms-1"></i>
                 </button>
@@ -50,7 +56,7 @@
                     <li>
                         <h6 class="dropdown-header">
                             <i class="fas fa-user-circle me-2"></i>
-                            <span id="dropdownMemberName">सदस्य नाम</span>
+                            <span id="dropdownMemberName"><?php echo htmlspecialchars($navbarMemberName); ?></span>
                         </h6>
                     </li>
                     <li><hr class="dropdown-divider"></li>
