@@ -9,8 +9,6 @@ let allDistricts = [];
 let allBlocks = [];
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Beti Vivah Applications page loaded');
-    
     // Load initial applications and filters
     loadApplications();
     loadFilterOptions();
@@ -104,22 +102,18 @@ function loadFilterOptions() {
     
     fetch(apiUrl)
         .then(response => {
-            console.log('Filter options response status:', response.status);
             if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
             return response.json();
         })
         .then(data => {
-            console.log('Filter options data:', data);
             if (data.success) {
                 allDistricts = data.data.districts || [];
                 populateDistrictFilter();
             } else {
-                console.error('API error:', data.message);
                 showAlert('फिल्टर लोड करने में त्रुटि: ' + data.message, 'danger');
             }
         })
         .catch(error => {
-            console.error('Error loading filter options:', error);
             showAlert('फिल्टर लोड करने में विफल: ' + error.message, 'danger');
         });
 }
@@ -171,7 +165,7 @@ function populateBlockFilter() {
             }
         })
         .catch(error => {
-            console.error('Error loading blocks:', error);
+            // Block load failed, leave block filter empty
         });
 }
 
@@ -201,17 +195,14 @@ function loadApplications() {
         url += `&status=${encodeURIComponent(currentStatus)}`;
     }
 
-    console.log('Loading applications from:', url);
     showLoading();
 
     fetch(url)
         .then(response => {
-            console.log('API response status:', response.status);
             if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
             return response.json();
         })
         .then(data => {
-            console.log('Applications data:', data);
             if (data.success) {
                 populateApplicationsTable(data.data);
                 updateStats(data.data.stats);
@@ -226,7 +217,6 @@ function loadApplications() {
             }
         })
         .catch(error => {
-            console.error('Error:', error);
             showAlert('आवेदन डेटा लोड करने में त्रुटि: ' + error.message, 'danger');
             showEmptyState();
         })
@@ -650,7 +640,6 @@ function showEmptyState() {
 
 // Show alert
 function showAlert(message, type = 'info') {
-    console.log(`[${type}] ${message}`);
     // You can customize this to show actual alerts
 }
 

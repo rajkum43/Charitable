@@ -172,7 +172,7 @@ function displayTable() {
         row.innerHTML = `
             <td>${rowNumber}</td>
             <td><strong>${item.full_name}</strong></td>
-            <td><span class="unique-id">${item.claim_number}</span></td>
+            <td><span class="unique-id">${item.member_id}</span></td>
             <td><span class="amount-cell">₹ ${parseFloat(item.amount || 0).toFixed(2)}</span></td>
             <td>${item.recipient_name || '-'}</td>
             <td>${item.district || '-'}</td>

@@ -21,32 +21,49 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8mb4");
 
 $applications = [];
+$error_message = '';
 
 if ($member_id) {
-    // Fetch Beti Vivah applications
-    $stmt = $conn->prepare("SELECT *, 'beti_vivah' as app_type FROM beti_vivah_aavedan WHERE member_id = ? ORDER BY created_at DESC");
-    $stmt->bind_param('s', $member_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $applications[] = $row;
+    try {
+        // Fetch Beti Vivah applications (if table exists)
+        $check_table = $conn->query("SHOW TABLES LIKE 'beti_vivah_aavedan'");
+        if ($check_table && $check_table->num_rows > 0) {
+            $stmt = $conn->prepare("SELECT *, 'beti_vivah' as app_type FROM beti_vivah_aavedan WHERE member_id = ? ORDER BY created_at DESC");
+            if ($stmt) {
+                $stmt->bind_param('s', $member_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                while ($row = $result->fetch_assoc()) {
+                    $applications[] = $row;
+                }
+                $stmt->close();
+            }
+        }
+        
+        // Fetch Death Aavedan applications (if table exists)
+        $check_table = $conn->query("SHOW TABLES LIKE 'death_aavedan'");
+        if ($check_table && $check_table->num_rows > 0) {
+            $stmt = $conn->prepare("SELECT *, 'death_aavedan' as app_type FROM death_aavedan WHERE member_id = ? ORDER BY created_at DESC");
+            if ($stmt) {
+                $stmt->bind_param('s', $member_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                while ($row = $result->fetch_assoc()) {
+                    $applications[] = $row;
+                }
+                $stmt->close();
+            }
+        }
+        
+        // Sort all applications by created_at DESC
+        if (count($applications) > 0) {
+            usort($applications, function($a, $b) {
+                return strtotime($b['created_at']) - strtotime($a['created_at']);
+            });
+        }
+    } catch (Exception $e) {
+        $error_message = 'आवेदन लोड करने में त्रुटि: ' . $e->getMessage();
     }
-    $stmt->close();
-    
-    // Fetch Death Aavedan applications
-    $stmt = $conn->prepare("SELECT *, 'death_aavedan' as app_type FROM death_aavedan WHERE member_id = ? ORDER BY created_at DESC");
-    $stmt->bind_param('s', $member_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $applications[] = $row;
-    }
-    $stmt->close();
-    
-    // Sort all applications by created_at DESC
-    usort($applications, function($a, $b) {
-        return strtotime($b['created_at']) - strtotime($a['created_at']);
-    });
 }
 
 $conn->close();?>
@@ -204,6 +221,14 @@ $conn->close();?>
                     </h2>
                     <p class="text-muted">अपने बेटी विवाह सहायता और मृत्यु सहायता आवेदन की स्थिति यहाँ देखें।</p>
                 </div>
+
+                <?php if (!empty($error_message)): ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <?php echo htmlspecialchars($error_message); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
 
                 <?php if (count($applications) > 0): ?>
                     <?php foreach ($applications as $app): 
@@ -405,6 +430,7 @@ $conn->close();?>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
         // Sidebar toggle function
         function toggleMobileSidebar() {
@@ -450,4 +476,3 @@ $conn->close();?>
     </script>
 </body>
 </html>
-<?php $conn->close(); ?>

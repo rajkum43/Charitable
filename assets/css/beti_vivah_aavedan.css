@@ -70,13 +70,15 @@ body {
     animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+html,
+body {
+    overflow-x: visible !important;
 }
 
-/* Tab Navigation Styling */
-.nav-tabs-custom {
+.container-wrapper,
+.form-card {
+    overflow-x: visible;
+}
     border: none;
     background: #f8f9fa;
     border-radius: 8px;

@@ -107,8 +107,8 @@ try {
         <div class="receipt-content">
             <!-- Header -->
             <div class="receipt-header">
-                <div class="trust-name">BRCT TRUST</div>
-                <div class="trust-subtitle">भारत ट्रस्ट - BHARAT TRUST</div>
+                <div class="trust-name">BHARAT RELIEF CHARITABLE TRUST</div>
+                <div class="trust-subtitle">भारत रिलीफ चैरिटेबल ट्रस्ट</div>
             </div>
             
             <!-- Receipt Fields -->

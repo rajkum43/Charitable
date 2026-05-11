@@ -11,8 +11,54 @@ let donationsData = [];
 // Initialize on Page Load
 // ===========================
 document.addEventListener('DOMContentLoaded', function() {
+    loadMemberInfo();
     loadMemberDonations();
 });
+
+// ===========================
+// Load Logged-in Member Info
+// ===========================
+async function loadMemberInfo() {
+    try {
+        const response = await fetch(window.API_URL + 'get_member_data.php', {
+            method: 'GET',
+            credentials: 'same-origin'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (!data.success) {
+            throw new Error(data.message || 'Failed to load member information');
+        }
+
+        memberData = data.data;
+        populateMemberUI(memberData);
+    } catch (error) {
+        // Silent failure handled by UI state updates elsewhere
+    }
+}
+
+function populateMemberUI(member) {
+    if (!member) return;
+
+    const sidebarName = document.getElementById('sidebarMemberName');
+    const sidebarId = document.getElementById('sidebarMemberId');
+    const navbarName = document.getElementById('navbarMemberName');
+    const dropdownName = document.getElementById('dropdownMemberName');
+    const pollOptionEl = document.getElementById('memberPollOption');
+
+    if (sidebarName) sidebarName.textContent = member.full_name || 'सदस्य';
+    if (sidebarId) sidebarId.textContent = 'ID: ' + (member.member_id || 'N/A');
+    if (navbarName) navbarName.textContent = member.full_name || 'सदस्य';
+    if (dropdownName) dropdownName.textContent = member.full_name || 'सदस्य';
+
+    if (pollOptionEl && member.poll_option) {
+        pollOptionEl.textContent = member.poll_option;
+    }
+}
 
 // ===========================
 // Load Member Donations via API
@@ -43,18 +89,6 @@ async function loadMemberDonations() {
             throw new Error(data.message || 'Failed to load donations');
         }
         
-        // Debug log
-        console.log('API Response:', data);
-        console.log('Debug Info:', data.debug);
-        console.log('Total donations:', data.data.donations.length);
-        data.data.donations.forEach((d, i) => {
-            console.log(`Donation ${i}:`, {
-                type: d.application_type,
-                claim: d.claim_number,
-                name: d.full_name || d.deceased_name || d.bride_name
-            });
-        });
-        
         // Store data globally
         memberData = data.data.member;
         donationsData = data.data.donations;
@@ -64,7 +98,6 @@ async function loadMemberDonations() {
         renderDonationCards();
         
     } catch (error) {
-        console.error('Error loading donations:', error);
         showToast('दान डेटा लोड करने में त्रुटि: ' + error.message, 'error');
         showNoDataMessage();
     } finally {
@@ -454,7 +487,6 @@ function copyBankDetails(button, event) {
             showToast('बैंक जानकारी कॉपी की गई', 'success');
         });
     } catch (e) {
-        console.error('Copy error:', e);
         showToast('कॉपी करने में त्रुटि', 'error');
     }
 }
@@ -858,7 +890,6 @@ async function handleTransactionSubmit(event, donationId, claimNumber, applicati
         }
         
     } catch (error) {
-        console.error('Upload error:', error);
         statusDiv.style.display = 'block';
         alertDiv.className = 'alert alert-danger';
         alertDiv.innerHTML = `

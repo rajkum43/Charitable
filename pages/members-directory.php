@@ -18,7 +18,7 @@ require_once '../includes/config.php';
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Member Directory CSS -->
     <link rel="stylesheet" href="../assets/css/members-directory.css">
-</head>
+</head> 
 <body>
 
     <!-- Top Header -->
@@ -173,6 +173,9 @@ require_once '../includes/config.php';
 
     <!-- Footer -->
     <?php include '../components/footer.php'; ?>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- AOS Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

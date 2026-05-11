@@ -10,7 +10,20 @@ function toggleMobileSidebar() {
 }
 
 function loadSection(sectionName) {
-    console.log('Loading section:', sectionName);
+    const sectionMap = {
+        'dashboard': 'index.php',
+        'profile': 'index.php#profile',
+        'membership': 'index.php#membership',
+        'payment': 'index.php#payment',
+        'documents': 'index.php#documents',
+        'settings': 'index.php#settings'
+    };
+
+    if (sectionMap[sectionName]) {
+        window.location.href = sectionMap[sectionName];
+    } else {
+        window.location.href = 'index.php';
+    }
 }
 
 function logoutMember() {

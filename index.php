@@ -32,6 +32,26 @@ require_once 'includes/config.php';
     <!-- Dynamic Hero Slider (Database Content) -->
     <?php include 'components/hero-slider.php'; ?>
 
+    <!-- Active Poll Alerts Section -->
+    <section class="poll-alerts-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="badge bg-warning-soft text-warning px-3 py-2 mb-3">सक्रिय अलर्ट</span>
+                <h2 class="section-title">वर्तमान सहयोग अलर्ट</h2>
+                <p class="lead text-secondary">आपके सहयोग की आवश्यकता वाले परिवार</p>
+            </div>
+            
+            <div id="pollAlertsContainer" class="row g-4">
+                <!-- Poll alerts will be loaded here via API -->
+                <div class="text-center w-100">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Trust Introduction with Floating Cards -->
     <section class="introduction-section py-5 position-relative">
         <div class="container">
@@ -174,7 +194,7 @@ require_once 'includes/config.php';
             
             <div id="coreTeamContainer" class="row g-4 justify-content-center">
                 <!-- Team members will be loaded here via API -->
-                <div class="text-center" style="width: 100%; ">
+                <div class="text-center" style="width: 100%;">
                     <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
@@ -447,6 +467,163 @@ require_once 'includes/config.php';
         
         // Load team members when DOM is ready
         document.addEventListener('DOMContentLoaded', loadCoreTeam);
+    </script>
+    
+    <!-- Poll Alerts Loader -->
+    <script>
+        // Fetch and render poll alerts
+        async function loadPollAlerts() {
+            try {
+                const response = await fetch('api/get_active_poll_alerts.php');
+                const result = await response.json();
+                
+                const container = document.getElementById('pollAlertsContainer');
+                const section = document.querySelector('.poll-alerts-section');
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    // Show section when alerts exist
+                    section.style.display = 'block';
+                    
+                    let html = '';
+                    result.data.forEach(alert => {
+                        const qrUrl = alert.payment_info.upi_id ? 
+                            `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=${alert.payment_info.upi_id}&pn=${alert.payment_info.account_holder_name || alert.applicant_name}&cu=INR` : '';
+                        
+                        const donationStats = alert.donation_stats || { total_donations: 0, total_amount: 0, verified_count: 0 };
+                        const eventLabel = alert.type === 'बेटी विवाह सहायता' ? 'विवाह तारीख' : 'मृत्यु तारीख';
+                        const beneficiaryLabel = alert.type === 'बेटी विवाह सहायता' ? 'बेटी का नाम' : 'नामांकित व्यक्ति का नाम';
+                        
+                        html += `
+                            <div class="col-lg-6 col-xl-4" data-aos="fade-up">
+                                <div class="alert-card bg-white rounded-4 shadow-sm overflow-hidden h-100">
+                                    <!-- Header with Badge -->
+                                    <div class="alert-header bg-gradient-primary text-white p-3 d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <div class="mb-2">
+                                                <span class="badge bg-${alert.type === 'बेटी विवाह सहायता' ? 'success' : 'danger'} me-2">Alert #${alert.alert}</span>
+                                                <span class="badge bg-light text-dark">क्लेम: ${alert.claim_number}</span>
+                                            </div>
+                                            <h5 class="alert-type text-white mb-1">${alert.type}</h5>
+                                            <span class="badge bg-light text-dark">पोल विकल्प: ${alert.poll_option}</span>
+                                        </div>
+                                        <i class="fas ${alert.type === 'बेटी विवाह सहायता' ? 'fa-heart' : 'fa-handshake'} text-white fa-2x"></i>
+                                    </div>
+                                    
+                                    <!-- Details Section -->
+                                    <div class="alert-details p-4">
+                                        <div class="detail-row mb-3 pb-2 border-bottom">
+                                            <small class="text-muted">लाभार्थी</small>
+                                            <p class="mb-0"><strong>${alert.beneficiary_name}</strong></p>
+                                        </div>
+                                        
+                                        <div class="detail-row mb-3 pb-2 border-bottom">
+                                            <small class="text-muted">${eventLabel}</small>
+                                            <p class="mb-0"><strong>${alert.event_date}</strong></p>
+                                        </div>
+                                        
+                                        <div class="detail-row mb-3 pb-2 border-bottom">
+                                            <small class="text-muted">आवेदनकर्ता</small>
+                                            <p class="mb-0"><strong>${alert.applicant_name}</strong></p>
+                                        </div>
+                                        
+                                        <div class="detail-row mb-3 pb-2 border-bottom">
+                                            <small class="text-muted">स्थान</small>
+                                            <p class="mb-0"><strong>${alert.location}</strong></p>
+                                        </div>
+                                        
+                                        <div class="detail-row">
+                                            <small class="text-muted">पता</small>
+                                            <p class="mb-0 small"><strong>${alert.address}</strong></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Donation Statistics -->
+                                    <div class="donation-stats p-3 bg-light border-top">
+                                        <h6 class="text-primary mb-3">
+                                            <i class="fas fa-chart-bar me-2"></i> दान आँकड़े
+                                        </h6>
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <div class="stat-box p-2 bg-white rounded text-center">
+                                                    <div class="stat-value text-primary h5 mb-0">${donationStats.total_donations}</div>
+                                                    <small class="text-muted">कुल दान</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="stat-box p-2 bg-white rounded text-center">
+                                                    <div class="stat-value text-success h5 mb-0">₹${donationStats.total_amount.toFixed(2)}</div>
+                                                    <small class="text-muted">कुल राशि</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="stat-box p-2 bg-white rounded text-center"> 
+                                                    <div class="stat-value text-warning h5 mb-0">${donationStats.pending_count ?? 0}</div>
+                                                    <small class="text-muted">लंबित</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Payment Section -->
+                                    <div class="payment-section p-4 border-top">
+                                        <h6 class="text-primary mb-3">
+                                            <i class="fas fa-credit-card me-2"></i> भुगतान जानकारी
+                                        </h6>
+                                        
+                                        ${alert.payment_info.upi_id ? `
+                                        <div class="payment-method mb-3">
+                                            <h6 class="small text-secondary mb-2">UPI के माध्यम से भुगतान करें</h6>
+                                            <div class="qr-code text-center mb-2 bg-light p-2 rounded">
+                                                <img src="${qrUrl}" alt="UPI QR Code" class="img-fluid" style="max-width: 100px;">
+                                            </div>
+                                            <p class="text-muted small mb-0">UPI ID: <strong>${alert.payment_info.upi_id}</strong></p>
+                                        </div>
+                                        ` : ''}
+                                        
+                                        ${alert.payment_info.bank_name ? `
+                                        <div class="payment-method mt-3 pt-3 border-top">
+                                            <h6 class="small text-secondary mb-2">बैंक खाते में भुगतान करें</h6>
+                                            <div class="bank-details small">
+                                                <p class="mb-1"><strong>बैंक:</strong> ${alert.payment_info.bank_name}</p>
+                                                <p class="mb-1"><strong>खाताधारक:</strong> ${alert.payment_info.account_holder_name || alert.applicant_name}</p>
+                                                <p class="mb-1"><strong>खाता नंबर:</strong> ${alert.payment_info.account_number}</p>
+                                                <p class="mb-0"><strong>IFSC:</strong> ${alert.payment_info.ifsc_code}</p>
+                                            </div>
+                                        </div>
+                                        ` : ''}
+                                        
+                                        <div class="donation-period mt-3 p-2 bg-warning bg-opacity-10 border border-warning rounded-2 text-center">
+                                            <small class="text-muted">
+                                                <i class="fas fa-hourglass-end me-1"></i>
+                                                दान अवधि: <strong>${alert.donation_period.start}</strong> से <strong>${alert.donation_period.end}</strong><br>
+                                                <strong class="text-danger">${alert.donation_period.days_left}</strong> दिन बाकी
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+                    
+                    // Reinitialize AOS for new elements
+                    if (typeof AOS !== 'undefined') {
+                        AOS.refresh();
+                    }
+                } else {
+                    // No alerts found - hide entire section
+                    section.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading poll alerts:', error);
+                // Hide section on error too
+                const section = document.querySelector('.poll-alerts-section');
+                section.style.display = 'none';
+            }
+        }
+        
+        // Load poll alerts when DOM is ready
+        document.addEventListener('DOMContentLoaded', loadPollAlerts);
     </script>
 </body>
 </html>

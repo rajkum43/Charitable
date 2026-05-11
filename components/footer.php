@@ -1,4 +1,17 @@
 <footer class="footer bg-dark text-white pt-5">
+    <?php 
+    // Determine the base path dynamically based on server
+    // Check if we're on localhost or production server
+    $host = $_SERVER['HTTP_HOST'];
+    
+    if (strpos($host, 'localhost') !== false || strpos($host, '127.0.0.1') !== false) {
+        // Localhost: /Charitable/
+        $root_path = '/Charitable/';
+    } else {
+        // Production server: /
+        $root_path = '/';
+    }
+    ?>
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-4 col-md-6">
@@ -14,11 +27,11 @@
             <div class="col-lg-2 col-md-6">
                 <h4 class="mb-4">Quick Links</h4>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="index.php" class="text-white-50 text-decoration-none">Home</a></li>
-                    <li class="mb-2"><a href="pages/about.php" class="text-white-50 text-decoration-none">About Us</a></li>
-                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Niyamawali</a></li>
-                    <li class="mb-2"><a href="pages/members-directory.php" class="text-white-50 text-decoration-none">Member List</a></li>
-                    <li class="mb-2"><a href="pages/contact.php" class="text-white-50 text-decoration-none">Contact</a></li>
+                    <li class="mb-2"><a href="<?php echo $root_path; ?>index.php" class="text-white-50 text-decoration-none" style="cursor: pointer; pointer-events: auto; display: inline-block;">Home</a></li>
+                    <li class="mb-2"><a href="<?php echo $root_path; ?>pages/about.php" class="text-white-50 text-decoration-none" style="cursor: pointer; pointer-events: auto; display: inline-block;">About Us</a></li>
+                    <li class="mb-2"><a href="<?php echo $root_path; ?>pages/niyamavali.php" class="text-white-50 text-decoration-none" style="cursor: pointer; pointer-events: auto; display: inline-block;">Niyamawali</a></li>
+                    <li class="mb-2"><a href="<?php echo $root_path; ?>pages/members-directory.php" class="text-white-50 text-decoration-none" style="cursor: pointer; pointer-events: auto; display: inline-block;">Member List</a></li>
+                    <li class="mb-2"><a href="<?php echo $root_path; ?>pages/contact.php" class="text-white-50 text-decoration-none" style="cursor: pointer; pointer-events: auto; display: inline-block;">Contact</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -43,9 +56,10 @@
             <div class="col-12">
                 <hr class="bg-secondary">
                 <div class="text-center py-3">
-                    <p class="mb-0">© 2026 BRCT Bharat Trust. All Rights Reserved.</p>
+                    <p class="mb-0">© 2026 BRCT Bharat Trust. All Rights Reserved. | <a href="https://ssvtechmitra.com/contact.php" target="_blank" class="text-white-50 text-decoration-none" style="cursor: pointer;">Developed by SSVTechMitra Private Limited</a></p>
                 </div>
             </div>
         </div>
     </div>
 </footer>
+  <p class="mb-0">© 2026 BRCT Bharat Trust. All Rights Reserved. | <a href="https://ssvtechmitra.com/contact.php" target="_blank" class="text-dark-50 text-decoration-none" style="cursor: pointer;">Developed by SSVTechMitra Private Limited</a></p>

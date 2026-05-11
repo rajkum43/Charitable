@@ -20,7 +20,9 @@ try {
         exit;
     }
 
-    $memberId = $_SESSION['member_id'];
+    $memberId = trim($_SESSION['member_id'] ?? '');
+    $sessionLoginId = trim($_SESSION['login_id'] ?? '');
+    $sessionNumericId = ctype_digit($memberId) ? $memberId : '';
 
     // Database connection
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -41,10 +43,11 @@ try {
             utr_number, payment_verified, status, created_at,
             poll_option, nominee_name
         FROM members 
-        WHERE member_id = ?
+        WHERE member_id = ? OR login_id = ? OR id = ?
+        LIMIT 1
     ");
 
-    $stmt->bind_param("s", $memberId);
+    $stmt->bind_param("sss", $memberId, $sessionLoginId, $sessionNumericId);
     $stmt->execute();
     $result = $stmt->get_result();
 

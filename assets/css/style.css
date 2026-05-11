@@ -325,7 +325,7 @@ nav .navbar{
     position: relative;
     height: 60vh;
     opacity: 0;
-    transition: opacity 0.6s ease-in-out;
+    transition: opacity 0.01s ease-in-out;
 }
 
 .hero-slider .carousel-item.active {
@@ -1519,5 +1519,132 @@ nav .navbar{
     .navbar-toggler-icon {
         width: 1.2em;
         height: 1.2em;
+    }
+}
+
+/* Poll Alerts Styles */
+.poll-alerts-section {
+    background: linear-gradient(135deg, #fff5f5 0%, #fefefe 100%);
+}
+
+.alert-card {
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.alert-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color);
+}
+
+.alert-header {
+    border-bottom: 1px solid #f8f9fa;
+    padding-bottom: 1rem;
+}
+
+.alert-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.poll-option {
+    font-size: 0.8rem;
+}
+
+.detail-row {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.detail-row strong {
+    color: #495057;
+    display: inline-block;
+    min-width: 120px;
+}
+
+.payment-section {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.payment-method {
+    margin-bottom: 1rem;
+}
+
+.payment-method h6 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.qr-code {
+    margin: 1rem 0;
+}
+
+.bank-details p {
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+}
+
+.donation-period {
+    border: 1px solid #dee2e6;
+    background: #fff;
+}
+
+.donation-stats {
+    border-top: 2px solid #e9ecef;
+}
+
+.stat-box {
+    transition: all 0.3s ease;
+    border: 1px solid #dee2e6;
+}
+
+.stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+}
+
+.no-alerts {
+    padding: 3rem 1rem;
+}
+
+.no-alerts-icon {
+    opacity: 0.5;
+}
+
+/* Responsive adjustments for alerts */
+@media (max-width: 768px) {
+    .alert-card {
+        margin-bottom: 1rem;
+    }
+    
+    .detail-row strong {
+        min-width: 100px;
+        display: block;
+        margin-bottom: 0.2rem;
     }
 }

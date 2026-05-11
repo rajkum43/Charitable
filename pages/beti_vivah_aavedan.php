@@ -117,7 +117,7 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
             </ul>
 
             <!-- Tab Content -->
-            <form id="beti-vivah-form" method="POST" enctype="multipart/form-data">
+            <form id="beti-vivah-form" method="POST" enctype="multipart/form-data" novalidate>
                 <div class="tab-content" id="vivahTabContent">
 
                     <!-- Tab 1: User Details -->
@@ -196,43 +196,18 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="bride_name" class="required-field">दुल्हन का नाम</label>
-                                        <input type="text" class="form-control" id="bride_name" name="bride_name" required>
+                                        <input type="text" class="form-control" id="bride_name" name="bride_name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="bride_dob" class="required-field">जन्म तिथि</label>
-                                        <input type="date" class="form-control" id="bride_dob" name="bride_dob" required>
+                                        <input type="date" class="form-control" id="bride_dob" name="bride_dob">
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="bride_education">शिक्षा का स्तर</label>
-                                        <select class="form-select" id="bride_education" name="bride_education">
-                                            <option value="">-- चुनें --</option>
-                                            <option value="निरक्षर">निरक्षर</option>
-                                            <option value="प्राथमिक">प्राथमिक</option>
-                                            <option value="माध्यमिक">माध्यमिक</option>
-                                            <option value="उच्च माध्यमिक">उच्च माध्यमिक</option>
-                                            <option value="स्नातक">स्नातक</option>
-                                            <option value="स्नातकोत्तर">स्नातकोत्तर</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="bride_health" class="required-field">स्वास्थ्य स्थिति</label>
-                                        <select class="form-select" id="bride_health" name="bride_health" required>
-                                            <option value="">-- चुनें --</option>
-                                            <option value="स्वस्थ">स्वस्थ</option>
-                                            <option value="कोई विशेष बीमारी">कोई विशेष बीमारी</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
 
                         <!-- Groom Details -->
@@ -245,52 +220,31 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="groom_name" class="required-field">दूल्हे का नाम</label>
-                                        <input type="text" class="form-control" id="groom_name" name="groom_name" required>
+                                        <input type="text" class="form-control" id="groom_name" name="groom_name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="groom_dob" class="required-field">जन्म तिथि</label>
-                                        <input type="date" class="form-control" id="groom_dob" name="groom_dob" required>
+                                        <input type="date" class="form-control" id="groom_dob" name="groom_dob">
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="groom_occupation" class="required-field">व्यवसाय</label>
-                                        <input type="text" class="form-control" id="groom_occupation" name="groom_occupation" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="groom_education">शिक्षा का स्तर</label>
-                                        <select class="form-select" id="groom_education" name="groom_education">
-                                            <option value="">-- चुनें --</option>
-                                            <option value="निरक्षर">निरक्षर</option>
-                                            <option value="प्राथमिक">प्राथमिक</option>
-                                            <option value="माध्यमिक">माध्यमिक</option>
-                                            <option value="उच्च माध्यमिक">उच्च माध्यमिक</option>
-                                            <option value="स्नातक">स्नातक</option>
-                                            <option value="स्नातकोत्तर">स्नातकोत्तर</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="wedding_date" class="required-field">विवाह की तारीख</label>
-                                        <input type="date" class="form-control" id="wedding_date" name="wedding_date" required>
+                                        <input type="date" class="form-control" id="wedding_date" name="wedding_date">
                                         <small class="form-text text-muted mt-1">आवेदन आज से 1 साल पहले या 1 साल बाद तक की विवाह तारीख के लिए किया जा सकता है</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="groom_father_name" class="required-field">दूल्हे के पिता का नाम</label>
-                                        <input type="text" class="form-control" id="groom_father_name" name="groom_father_name" required>
+                                        <input type="text" class="form-control" id="groom_father_name" name="groom_father_name">
                                     </div>
                                 </div>
                             </div>
@@ -312,20 +266,7 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                             <i class="fas fa-home"></i> अतिरिक्त विवरण
                         </h5>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="family_income" class="required-field">वार्षिक पारिवारिक आय (₹)</label>
-                                    <input type="number" class="form-control" id="family_income" name="family_income" required min="0">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="family_members" class="required-field">परिवार के सदस्यों की संख्या</label>
-                                    <input type="number" class="form-control" id="family_members" name="family_members" required min="1">
-                                </div>
-                            </div>
-                        </div>
+
 
                         <h6 style="color: var(--primary-color); font-weight: 700; margin-bottom: 15px; margin-top: 25px;">
                             <i class="fas fa-university me-2"></i>बैंक विवरण
@@ -335,13 +276,13 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ifsc_code" class="required-field">IFSC कोड</label>
-                                    <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" required placeholder="Ex: SBIN0001234">
+                                    <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="Ex: SBIN0001234">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="branch_name" class="required-field">शाखा का नाम</label>
-                                    <input type="text" class="form-control" id="branch_name" name="branch_name" required>
+                                    <input type="text" class="form-control" id="branch_name" name="branch_name">
                                 </div>
                             </div>
                         </div>
@@ -349,19 +290,19 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="account_number" class="required-field">खाता संख्या</label>
-                                    <input type="text" class="form-control" id="account_number" name="account_number" required>
+                                    <input type="text" class="form-control" id="account_number" name="account_number">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="bank_name" class="required-field">बैंक का नाम</label>
-                                    <input type="text" class="form-control" id="bank_name" name="bank_name" required>
+                                    <input type="text" class="form-control" id="bank_name" name="bank_name">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="account_holder_name" class="required-field">खाता धारक का नाम</label>
-                            <input type="text" class="form-control" id="account_holder_name" name="account_holder_name" required>
+                            <input type="text" class="form-control" id="account_holder_name" name="account_holder_name">
                         </div>
                         <div class="form-group">
                             <label for="upi_id">UPI ID (वैकल्पिक)</label>
@@ -395,55 +336,19 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                         </div>
 
                         <div class="mb-4">
-                            <label for="aadhar_proof" class="form-label required-field">आधार कार्ड की फोटोकॉपी</label>
-                            <div class="file-upload-box" onclick="document.getElementById('aadhar_proof').click()">
-                                <i class="fas fa-cloud-upload-alt" style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 10px; display: block;"></i>
-                                <p><strong>फ़ाइल चुनने के लिए यहाँ क्लिक करें</strong></p>
-                                <small class="text-muted">या यहाँ ड्रैग करें</small>
-                            </div>
-                            <input type="file" class="form-control d-none" id="aadhar_proof" name="aadhar_proof" accept="image/*,.pdf" required>
-                            <small class="text-danger" id="aadhar_proof_error"></small>
-                            <p class="mt-2" id="aadhar_proof_name" style="display:none;"><i class="fas fa-check text-success me-2"></i><span></span></p>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="address_proof" class="form-label required-field">पता प्रमाण (बिजली/गैस बिल)</label>
-                            <div class="file-upload-box" onclick="document.getElementById('address_proof').click()">
-                                <i class="fas fa-cloud-upload-alt" style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 10px; display: block;"></i>
-                                <p><strong>फ़ाइल चुनने के लिए यहाँ क्लिक करें</strong></p>
-                                <small class="text-muted">या यहाँ ड्रैग करें</small>
-                            </div>
-                            <input type="file" class="form-control d-none" id="address_proof" name="address_proof" accept="image/*,.pdf" required>
-                            <small class="text-danger" id="address_proof_error"></small>
-                            <p class="mt-2" id="address_proof_name" style="display:none;"><i class="fas fa-check text-success me-2"></i><span></span></p>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="income_proof" class="form-label required-field">आय प्रमाण पत्र</label>
-                            <div class="file-upload-box" onclick="document.getElementById('income_proof').click()">
-                                <i class="fas fa-cloud-upload-alt" style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 10px; display: block;"></i>
-                                <p><strong>फ़ाइल चुनने के लिए यहाँ क्लिक करें</strong></p>
-                                <small class="text-muted">या यहाँ ड्रैग करें</small>
-                            </div>
-                            <input type="file" class="form-control d-none" id="income_proof" name="income_proof" accept="image/*,.pdf" required>
-                            <small class="text-danger" id="income_proof_error"></small>
-                            <p class="mt-2" id="income_proof_name" style="display:none;"><i class="fas fa-check text-success me-2"></i><span></span></p>
-                        </div>
-
-                        <div class="mb-4">
                             <label for="marriage_certificate" class="form-label required-field">विवाह कार्ड/निमंत्रण</label>
                             <div class="file-upload-box" onclick="document.getElementById('marriage_certificate').click()">
                                 <i class="fas fa-cloud-upload-alt" style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 10px; display: block;"></i>
                                 <p><strong>फ़ाइल चुनने के लिए यहाँ क्लिक करें</strong></p>
                                 <small class="text-muted">या यहाँ ड्रैग करें</small>
                             </div>
-                            <input type="file" class="form-control d-none" id="marriage_certificate" name="marriage_certificate" accept="image/*,.pdf" required>
+                            <input type="file" class="form-control d-none" id="marriage_certificate" name="marriage_certificate" accept="image/*,.pdf">
                             <small class="text-danger" id="marriage_certificate_error"></small>
                             <p class="mt-2" id="marriage_certificate_name" style="display:none;"><i class="fas fa-check text-success me-2"></i><span></span></p>
                         </div>
 
                         <div class="form-check" style="background: #fff3cd; padding: 15px; border-radius: 6px; border: 1px solid #ffc107;">
-                            <input type="checkbox" class="form-check-input" id="confirm_details" name="confirm_details" required>
+                            <input type="checkbox" class="form-check-input" id="confirm_details" name="confirm_details">
                             <label class="form-check-label" for="confirm_details">
                                 <strong>मैं पुष्टि करता/करती हूँ कि दी गई सभी जानकारी सही है और मैं इसके लिए जिम्मेदार हूँ।</strong>
                             </label>
@@ -505,12 +410,6 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                                         <div class="preview-item-value" id="preview_bride_dob">-</div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="preview-item">
-                                        <div class="preview-item-label">स्वास्थ्य स्थिति</div>
-                                        <div class="preview-item-value" id="preview_bride_health">-</div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -532,12 +431,6 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                                         <div class="preview-item-value" id="preview_groom_dob">-</div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="preview-item">
-                                        <div class="preview-item-label">व्यवसाय</div>
-                                        <div class="preview-item-value" id="preview_groom_occupation">-</div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -551,21 +444,6 @@ $member_id = $is_logged_in ? $_SESSION['member_id'] : null;
                                     <div class="preview-item">
                                         <div class="preview-item-label">विवाह की तारीख</div>
                                         <div class="preview-item-value" id="preview_wedding_date">-</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="preview-item">
-                                        <div class="preview-item-label">पारिवारिक आय (वार्षिक)</div>
-                                        <div class="preview-item-value" id="preview_family_income">-</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="margin-top: 10px;">
-                                <div class="col-md-6">
-                                    <div class="preview-item">
-                                        <div class="preview-item-label">परिवार के सदस्य</div>
-                                        <div class="preview-item-value" id="preview_family_members">-</div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

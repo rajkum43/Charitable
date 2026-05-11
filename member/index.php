@@ -64,15 +64,7 @@ require_once '../includes/config.php';
                                 <i class="fas fa-check-circle"></i>
                             </div>
                             <div class="stat-value" id="memberStatus">-</div>
-                            <div class="stat-label">सदस्यता स्थिति</div>
-                        </div>
-
-                        <div class="stat-card warning">
-                            <div class="stat-icon">
-                                <i class="fas fa-credit-card"></i>
-                            </div>
-                            <div class="stat-value" id="paymentStatus">-</div>
-                            <div class="stat-label">भुगतान स्थिति</div>
+                            <div class="stat-label">सक्रिय सदस्यता स्थिति</div>
                         </div>
 
                         <div class="stat-card info">
@@ -89,6 +81,14 @@ require_once '../includes/config.php';
                             </div>
                             <div class="stat-value" id="referralCount">0</div>
                             <div class="stat-label">रेफरल संख्या</div>
+                        </div>
+
+                        <div class="stat-card danger">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-value" id="renewalDate">-</div>
+                            <div class="stat-label">नवीनीकरण की तारीख</div>
                         </div>
                     </div>
 
@@ -141,21 +141,33 @@ require_once '../includes/config.php';
                 <!-- Profile Section -->
                 <div id="profile-section" class="content-box">
                     <h2 class="mb-4">प्रोफाइल संपादित करें</h2>
-                    
-                    <div class="profile-section">
-                        <div class="profile-image">
-                            <div class="profile-avatar">
-                                <i class="fas fa-user"></i>
+
+                    <div class="profile-card card profile-section p-4">
+                        <div class="profile-top d-flex align-items-center justify-content-between flex-column flex-lg-row gap-4">
+                            <div class="profile-image">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+
+                            <div class="profile-summary flex-grow-1">
+                                <p class="section-badge mb-2">सदस्य प्रबंधन</p>
+                                <h3 class="profile-name mb-2" id="profileFullName">-</h3>
+                                <p class="profile-subtitle text-muted mb-3">
+                                    अपनी प्रोफाइल जानकारी सुरक्षित और तेज़ तरीके से अपडेट करें। नीचे दिए गए फ़ील्ड्स पर क्लिक करके संपादन शुरू करें।
+                                </p>
+                                <div class="profile-actions d-flex flex-wrap gap-2">
+                                    <button class="btn btn-sm btn-primary shadow-sm">
+                                        <i class="fas fa-user-edit me-1"></i> सम्पूर्ण प्रोफ़ाइल देखें
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary shadow-sm">
+                                        <i class="fas fa-sync-alt me-1"></i> डेटा रिफ्रेश करें
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="profile-info">
-                            <!-- Full Name -->
-                            <div class="info-group">
-                                <label class="info-label">पूरा नाम</label>
-                                <div class="info-value" id="profileFullName">-</div>
-                            </div>
-
+                        <div class="profile-info-grid mt-4">
                             <!-- Email -->
                             <div class="info-group">
                                 <label class="info-label">ईमेल</label>
@@ -403,5 +415,48 @@ require_once '../includes/config.php';
     <script src="../assets/js/config.js"></script>
     <!-- Member Dashboard JS -->
     <script src="assets/js/member.js"></script>
+
+    <!-- Renewal Modal -->
+    <div class="modal fade" id="renewalModal" tabindex="-1" aria-labelledby="renewalModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="renewalModalLabel">
+                        <i class="fas fa-exclamation-triangle me-2"></i>सदस्यता नवीनीकरण आवश्यक
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-calendar-times text-warning" style="font-size: 3rem;"></i>
+                    <h4 class="mt-3">आपकी सदस्यता समाप्त हो गई है</h4>
+                    <p class="text-muted">कृपया अपनी सदस्यता को नवीनीकृत करें ताकि आप सभी सेवाओं का लाभ उठा सकें।</p>
+                    <div class="alert alert-info">
+                        <strong>नवीनीकरण शुल्क:</strong> ₹500/- (प्रति वर्ष)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">बाद में</button>
+                    <a href="renew.php" class="btn btn-primary">
+                        <i class="fas fa-refresh me-2"></i>अभी नवीनीकृत करें
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Check renewal status on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('../api/check_renewal.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.needs_renewal) {
+                    const modal = new bootstrap.Modal(document.getElementById('renewalModal'));
+                    modal.show();
+                }
+            })
+            .catch(error => console.error('Error checking renewal:', error));
+    });
+    </script>
 </body>
 </html>

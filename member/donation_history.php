@@ -144,6 +144,7 @@ require_once '../includes/config.php';
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/member-common.js"></script>
     <script src="assets/js/donation_history.js"></script>
 </body>
 </html>

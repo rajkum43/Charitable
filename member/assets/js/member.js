@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Close sidebar when clicking outside on mobile
     closeSidebarOnClickOutside();
+
+    // If the page is opened with a section hash, show that section.
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+        loadSection(hash);
+    }
 });
 
 // Load member data
@@ -85,10 +91,16 @@ function populateMemberData(data) {
     document.getElementById('memberStatus').className = 
         data.status === 1 ? 'badge bg-success' : 'badge bg-warning';
     
+    // Display renewal date if available
+    const renewalDate = data.renew_exp_date ? new Date(data.renew_exp_date).toLocaleDateString('hi-IN') : 'N/A';
+    document.getElementById('memberStatus').innerHTML = 
+        (data.membership_status || 'निष्क्रिय') + '<br><small>अंतिम नवीनीकरण: ' + renewalDate + '</small>';
+    
     document.getElementById('joinDate').textContent = data.created_at || 'N/A';
-    document.getElementById('paymentStatus').textContent = data.payment_status || 'लंबित';
-    document.getElementById('paymentStatus').className = 
-        data.payment_verified === 1 ? 'badge bg-success' : 'badge bg-danger';
+    
+    // Display renewal expiry date
+    const renewalExpiryDate = data.renew_exp_date ? new Date(data.renew_exp_date).toLocaleDateString('hi-IN') : 'N/A';
+    document.getElementById('renewalDate').textContent = renewalExpiryDate;
     
     // Populate info card
     document.getElementById('memberID2').textContent = data.member_id || 'N/A';

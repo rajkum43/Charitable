@@ -27,7 +27,14 @@
 
 .table-responsive {
     border-radius: 8px;
-    overflow: hidden;
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.members-table {
+    min-width: 1024px;
 }
 
 .members-table thead {

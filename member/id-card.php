@@ -109,6 +109,7 @@ if (strpos($host, 'localhost') !== false || strpos($host, '127.0.0.1') !== false
     </div>
 </div>
 
+<script src="assets/js/member-common.js"></script>
 <script src="<?php echo $root_path; ?>member/assets/js/id_card.js"></script>
 </body>
 </html>

@@ -120,14 +120,88 @@ try {
         }
     }
 
-    // 9. Generate Safe Filename
-    $memberId = $_SESSION['member_id'];
+    // 9. Resolve logged-in member and validate against members table
+    $sessionMemberId = isset($_SESSION['member_id']) ? trim($_SESSION['member_id']) : '';
+    $sessionLoginId = isset($_SESSION['login_id']) ? trim($_SESSION['login_id']) : '';
+    $sessionNumericId = ctype_digit($sessionMemberId) ? $sessionMemberId : '';
+
+    if (empty($sessionMemberId) && empty($sessionLoginId)) {
+        http_response_code(401);
+        echo json_encode([
+            'success' => false,
+            'message' => 'अमान्य सदस्य सत्र। कृपया फिर से लॉगिन करें।'
+        ]);
+        exit;
+    }
+
+    $memberId = null;
+    $resolutionSource = null;
+
+    if (!empty($sessionMemberId)) {
+        $stmt = $pdo->prepare("SELECT member_id FROM members WHERE member_id = ? LIMIT 1");
+        $stmt->execute([$sessionMemberId]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $memberId = trim($row['member_id']);
+            $resolutionSource = 'member_id';
+        }
+    }
+
+    if (!$memberId && !empty($sessionNumericId)) {
+        $stmt = $pdo->prepare("SELECT member_id FROM members WHERE id = ? LIMIT 1");
+        $stmt->execute([$sessionNumericId]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $memberId = trim($row['member_id']);
+            $resolutionSource = 'id';
+        }
+    }
+
+    if (!$memberId && !empty($sessionLoginId)) {
+        $stmt = $pdo->prepare("SELECT member_id FROM members WHERE login_id = ? LIMIT 1");
+        $stmt->execute([$sessionLoginId]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            $memberId = trim($row['member_id']);
+            $resolutionSource = 'login_id';
+        }
+    }
+
+    if (!$memberId) {
+        http_response_code(400);
+        echo json_encode([
+            'success' => false,
+            'message' => 'सदस्य आईडी मान्य नहीं है। कृपया फिर से लॉगिन करें।'
+        ]);
+        exit;
+    }
+
+    // Confirm that resolved member_id exists exactly in members
+    $confirmStmt = $pdo->prepare("SELECT id, member_id, login_id FROM members WHERE member_id = ? LIMIT 1");
+    $confirmStmt->execute([$memberId]);
+    $confirmRow = $confirmStmt->fetch(PDO::FETCH_ASSOC);
+
+    $memberExists = (bool)$confirmRow;
+    $memberCountStmt = $pdo->prepare("SELECT COUNT(*) AS cnt FROM members WHERE member_id = ?");
+    $memberCountStmt->execute([$memberId]);
+    $memberCount = $memberCountStmt->fetch(PDO::FETCH_ASSOC)['cnt'] ?? 0;
+
+    if (!$memberExists) {
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'message' => 'सत्र सदस्य आईडी सत्यापित नहीं हो पाया। कृपया व्यवस्थापक से संपर्क करें।'
+        ]);
+        exit;
+    }
+
+    // 10. Generate Safe Filename
     $timestamp = time();
     $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
     $filename = "receipt_{$memberId}_{$timestamp}.{$fileExtension}";
     $filepath = $uploadDir . $filename;
 
-    // 10. Move File
+    // 11. Move File
     if (!move_uploaded_file($file['tmp_name'], $filepath)) {
         http_response_code(500);
         echo json_encode([
@@ -137,7 +211,7 @@ try {
         exit;
     }
 
-    // 11. Save Transaction Record to Database
+    // 12. Save Transaction Record to Database
     $claimNumber = trim($_POST['claim_number']);
     $applicationType = trim($_POST['application_type']);
     $remarks = isset($_POST['remarks']) ? trim($_POST['remarks']) : NULL;
@@ -186,6 +260,17 @@ try {
     if (!$result) {
         // Delete the uploaded file if DB insert fails
         unlink($filepath);
+
+        $memberExistsStmt = $pdo->prepare("SELECT COUNT(*) as cnt FROM members WHERE member_id = ?");
+        $memberExistsStmt->execute([$memberId]);
+        $memberExistsCount = $memberExistsStmt->fetch(PDO::FETCH_ASSOC)['cnt'] ?? 0;
+
+        $memberRowStmt = $pdo->prepare("SELECT id, member_id, login_id FROM members WHERE member_id = ? LIMIT 1");
+        $memberRowStmt->execute([$memberId]);
+        $memberRow = $memberRowStmt->fetch(PDO::FETCH_ASSOC);
+
+        $errorInfo = $stmt->errorInfo();
+
         http_response_code(500);
         echo json_encode([
             'success' => false,

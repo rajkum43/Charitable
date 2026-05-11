@@ -134,10 +134,10 @@ try {
     // Validate required fields (using snake_case to match form field names)
     $required_fields = [
         'member_name', 'member_id_display',
-        'bride_name', 'bride_dob', 'bride_health',
-        'groom_name', 'groom_dob', 'groom_occupation', 'groom_father_name',
+        'bride_name', 'bride_dob',
+        'groom_name', 'groom_dob', 'groom_father_name',
         'wedding_date',
-        'family_income', 'family_members', 'member_address',
+        'member_address',
         'ifsc_code', 'bank_name', 'branch_name', 'account_number', 'account_holder_name'
     ];
 
@@ -168,12 +168,8 @@ try {
     $bride_name = htmlspecialchars(trim($_POST['bride_name']));
     $bride_dob = $_POST['bride_dob'];
     $bride_aadhar = !empty($_POST['bride_aadhar']) ? htmlspecialchars(trim($_POST['bride_aadhar'])) : '';
-    $bride_education = !empty($_POST['bride_education']) ? htmlspecialchars(trim($_POST['bride_education'])) : '';
-    $bride_health = htmlspecialchars(trim($_POST['bride_health']));
 
     // Family details
-    $family_income = (int)$_POST['family_income'];
-    $family_members = (int)$_POST['family_members'];
     $address = htmlspecialchars(trim($_POST['member_address']));
     $district = !empty($_POST['district']) ? htmlspecialchars(trim($_POST['district'])) : 'Unknown';
     $block = !empty($_POST['block']) ? htmlspecialchars(trim($_POST['block'])) : 'Unknown';
@@ -195,9 +191,6 @@ try {
         $today = new DateTime();
         $groom_age = $today->diff($birth_date)->y;
     }
-    
-    $groom_occupation = htmlspecialchars(trim($_POST['groom_occupation']));
-    $groom_education = !empty($_POST['groom_education']) ? htmlspecialchars(trim($_POST['groom_education'])) : '';
 
     // Bank details
     $ifsc_code = htmlspecialchars(trim($_POST['ifsc_code']));
@@ -274,22 +267,7 @@ try {
         exit;
     }
 
-    // 2. Income and Family Members Validation
-    if ($family_income < 0) {
-        http_response_code(400);
-        $response['message'] = 'वार्षिक पारिवारिक आय नकारात्मक नहीं हो सकती';
-        echo json_encode($response);
-        exit;
-    }
-
-    if ($family_members < 1) {
-        http_response_code(400);
-        $response['message'] = 'परिवार के सदस्यों की संख्या कम से कम 1 होनी चाहिए';
-        echo json_encode($response);
-        exit;
-    }
-
-    // 3. Account Number Format Validation (usually 9-18 digits)
+    // 2. Account Number Format Validation (usually 9-18 digits)
     if (!preg_match('/^\d{9,18}$/', $account_number)) {
         http_response_code(400);
         $response['message'] = 'खाता संख्या 9 से 18 अंकों के बीच होनी चाहिए';
@@ -344,8 +322,8 @@ try {
     }
 
     $uploaded_files = [];
-    $file_fields = ['aadhar_proof', 'address_proof', 'income_proof', 'marriage_certificate'];
-    $required_files = ['aadhar_proof', 'address_proof', 'income_proof', 'marriage_certificate'];
+    $file_fields = ['marriage_certificate'];
+    $required_files = ['marriage_certificate'];
 
     foreach ($file_fields as $field) {
         if (isset($_FILES[$field]) && $_FILES[$field]['error'] === UPLOAD_ERR_OK) {
@@ -353,8 +331,8 @@ try {
             $file_name = $_FILES[$field]['name'];
             $file_size = $_FILES[$field]['size'];
 
-            // Validate file size (300KB max)
-            if ($file_size > 300 * 1024) {
+            // Validate file size (5MB max)
+            if ($file_size > 5 * 1024 * 1024) {
                 http_response_code(400);
                 $response['message'] = $field . ' फाइल 300KB से बड़ी नहीं होनी चाहिए';
                 echo json_encode($response);
@@ -414,11 +392,7 @@ try {
             bride_name VARCHAR(100) NOT NULL,
             bride_dob DATE NOT NULL,
             bride_aadhar VARCHAR(12),
-            bride_education VARCHAR(50),
-            bride_health VARCHAR(50) NOT NULL,
             
-            family_income INT NOT NULL,
-            family_members INT NOT NULL,
             address TEXT NOT NULL,
             district VARCHAR(50),
             block VARCHAR(50),
@@ -429,8 +403,6 @@ try {
             groom_dob DATE NOT NULL,
             groom_age INT NOT NULL,
             groom_father_name VARCHAR(100) NOT NULL,
-            groom_occupation VARCHAR(100) NOT NULL,
-            groom_education VARCHAR(50),
             wedding_date DATE NOT NULL,
             
             ifsc_code VARCHAR(11) NOT NULL,
@@ -440,9 +412,6 @@ try {
             account_holder_name VARCHAR(100) NOT NULL,
             upi_id VARCHAR(100),
             
-            aadhar_proof VARCHAR(255),
-            address_proof VARCHAR(255),
-            income_proof VARCHAR(255),
             marriage_certificate VARCHAR(255),
             
             status ENUM('Pending', 'Under Review', 'Approved', 'Rejected') DEFAULT 'Pending',
@@ -486,20 +455,17 @@ try {
     // ========== END AUTO MIGRATION ==========
 
     // Prepare file upload variables (bind_param requires actual variables, not expressions)
-    $aadhar_file = $uploaded_files['aadhar_proof'] ?? null;
-    $address_file = $uploaded_files['address_proof'] ?? null;
-    $income_file = $uploaded_files['income_proof'] ?? null;
     $marriage_file = $uploaded_files['marriage_certificate'] ?? null;
 
     // Insert data into database
     $stmt = $conn->prepare("INSERT INTO beti_vivah_aavedan (
         application_number, member_id, member_name, member_father,
-        bride_name, bride_dob, bride_aadhar, bride_education, bride_health,
-        family_income, family_members, address, district, block, city, state,
-        groom_name, groom_dob, groom_age, groom_father_name, groom_occupation, groom_education,
+        bride_name, bride_dob, bride_aadhar,
+        address, district, block, city, state,
+        groom_name, groom_dob, groom_age, groom_father_name,
         wedding_date, ifsc_code, bank_name, branch_name, account_number, account_holder_name, upi_id,
-        aadhar_proof, address_proof, income_proof, marriage_certificate
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        marriage_certificate
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     if (!$stmt) {
         logError("Prepare statement failed: " . $conn->error);
@@ -510,13 +476,13 @@ try {
     }
 
     $stmt->bind_param(
-        'sssssssssiisssssssissssssssssssss',
+        'ssssssssssssssssssssssss',
         $application_number, $member_id, $member_name, $member_father,
-        $bride_name, $bride_dob, $bride_aadhar, $bride_education, $bride_health,
-        $family_income, $family_members, $address, $district, $block, $city, $state,
-        $groom_name, $groom_dob, $groom_age, $groom_father_name, $groom_occupation, $groom_education,
+        $bride_name, $bride_dob, $bride_aadhar,
+        $address, $district, $block, $city, $state,
+        $groom_name, $groom_dob, $groom_age, $groom_father_name,
         $wedding_date, $ifsc_code, $bank_name, $branch_name, $account_number, $account_holder_name, $upi_id,
-        $aadhar_file, $address_file, $income_file, $marriage_file
+        $marriage_file
     );
 
     if ($stmt->execute()) {

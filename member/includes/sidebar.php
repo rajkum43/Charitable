@@ -43,7 +43,7 @@
             <h6 class="section-title">सदस्यता</h6>
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="index.php" class="nav-link" data-section="membership">
+                    <a href="id-card.php" class="nav-link" data-section="membership">
                         <i class="fas fa-id-card"></i>
                         <span>विवरण</span>
                     </a>
@@ -84,6 +84,12 @@
         <div class="sidebar-section">
             <h6 class="section-title">अन्य</h6>
             <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="application_status.php" class="nav-link">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>आवेदन स्थिति</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="index.php" class="nav-link" data-section="documents">
                         <i class="fas fa-file"></i>

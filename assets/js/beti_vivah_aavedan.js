@@ -18,7 +18,6 @@ function initializeAutoCapitalization() {
     const capitalizeInputs = [
         'bride_name',
         'groom_name',
-        'groom_occupation',
         'groom_father_name',
         'branch_name',
         'bank_name',
@@ -69,7 +68,6 @@ document.addEventListener('shown.bs.tab', function(e) {
 function setWeddingDateConstraints() {
     const weddingDateInput = document.getElementById('wedding_date');
     if (!weddingDateInput) {
-        console.warn('Wedding date input not found');
         return;
     }
 
@@ -86,8 +84,6 @@ function setWeddingDateConstraints() {
     // Format dates as YYYY-MM-DD for HTML5 date input
     const minDateStr = formatDateForInput(minDate);
     const maxDateStr = formatDateForInput(maxDate);
-    
-    console.log('Setting date constraints:', { minDateStr, maxDateStr, today: formatDateForInput(today) });
     
     // Set min and max attributes
     weddingDateInput.setAttribute('min', minDateStr);
@@ -150,7 +146,6 @@ function verifyMember() {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
         document.getElementById('verification-loader').style.display = 'none';
         document.getElementById('verification-error').textContent = 'नेटवर्क त्रुटि: ' + error.message;
         document.getElementById('verification-error').style.display = 'block';
@@ -197,7 +192,6 @@ function fetchBankDetails() {
             }
         })
         .catch(error => {
-            console.error('IFSC lookup error:', error);
         });
 }
 
@@ -275,26 +269,6 @@ function validateAccountNumber() {
     return true;
 }
 
-// Validate Income (non-negative)
-function validateFamilyIncome() {
-    const income = parseInt(document.getElementById('family_income').value);
-    if (isNaN(income) || income < 0) {
-        alert('वार्षिक पारिवारिक आय नकारात्मक नहीं हो सकती');
-        return false;
-    }
-    return true;
-}
-
-// Validate Family Members (>= 1)
-function validateFamilyMembers() {
-    const members = parseInt(document.getElementById('family_members').value);
-    if (isNaN(members) || members < 1) {
-        alert('परिवार के सदस्यों की संख्या कम से कम 1 होनी चाहिए');
-        return false;
-    }
-    return true;
-}
-
 // Validate UPI ID Format (if provided)
 function validateUPI() {
     const upiId = document.getElementById('upi_id').value.trim();
@@ -326,8 +300,6 @@ function validateAllFields() {
         { fn: validateGroomAge, name: 'दूल्हे की आयु' },
         { fn: validateWeddingDate, name: 'विवाह की तारीख' },
         { fn: validateAccountNumber, name: 'खाता संख्या' },
-        { fn: validateFamilyIncome, name: 'पारिवारिक आय' },
-        { fn: validateFamilyMembers, name: 'परिवार के सदस्य' },
         { fn: validateUPI, name: 'UPI ID' },
         { fn: validateIFSC, name: 'IFSC कोड' }
     ];
@@ -346,13 +318,107 @@ function setupValidationListeners() {
     document.getElementById('groom_dob').addEventListener('change', validateGroomAge);
     document.getElementById('wedding_date').addEventListener('change', validateWeddingDate);
     document.getElementById('account_number').addEventListener('blur', validateAccountNumber);
-    document.getElementById('family_income').addEventListener('blur', validateFamilyIncome);
-    document.getElementById('family_members').addEventListener('blur', validateFamilyMembers);
     document.getElementById('upi_id').addEventListener('blur', validateUPI);
     document.getElementById('ifsc_code').addEventListener('blur', validateIFSC);
 }
 
-// ========== END VALIDATION FUNCTIONS ==========
+// Comprehensive form validation with tab switching
+function validateFormAndNavigate() {
+    const fieldTabMapping = {
+        // User Details Tab
+        'member_name': 'userdetails-tab',
+        'member_id_display': 'userdetails-tab',
+        'member_mobile': 'userdetails-tab',
+        'member_address': 'userdetails-tab',
+        
+        // Couple Tab
+        'bride_name': 'couple-tab',
+        'bride_dob': 'couple-tab',
+        'groom_name': 'couple-tab',
+        'groom_dob': 'couple-tab',
+        'groom_father_name': 'couple-tab',
+        'wedding_date': 'couple-tab',
+        
+        // Family Tab
+        'ifsc_code': 'family-tab',
+        'bank_name': 'family-tab',
+        'branch_name': 'family-tab',
+        'account_number': 'family-tab',
+        'account_holder_name': 'family-tab',
+        
+        // Documents Tab
+        'marriage_certificate': 'documents-tab',
+        'confirm_details': 'documents-tab'
+    };
+
+    const requiredFields = [
+        'member_name', 'member_id_display', 'member_mobile', 'member_address',
+        'bride_name', 'bride_dob', 'groom_name', 'groom_dob', 'groom_father_name', 'wedding_date',
+        'ifsc_code', 'bank_name', 'branch_name', 'account_number', 'account_holder_name',
+        'marriage_certificate'
+    ];
+
+    // Check each required field
+    for (const field of requiredFields) {
+        const elem = document.getElementById(field);
+        if (!elem || !elem.value.trim()) {
+            // Switch to the appropriate tab
+            const tabId = fieldTabMapping[field];
+            if (tabId) {
+                const tab = new bootstrap.Tab(document.getElementById(tabId));
+                tab.show();
+                
+                // Focus on the empty field after a short delay to ensure tab is visible
+                setTimeout(() => {
+                    if (elem) {
+                        elem.focus();
+                        elem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 300);
+            }
+            
+            // Show appropriate error message
+            const fieldNames = {
+                'member_name': 'सदस्य का नाम',
+                'member_id_display': 'सदस्य ID',
+                'member_mobile': 'मोबाइल नंबर',
+                'member_address': 'पता',
+                'bride_name': 'दुल्हन का नाम',
+                'bride_dob': 'दुल्हन की जन्म तिथि',
+                'groom_name': 'दूल्हे का नाम',
+                'groom_dob': 'दूल्हे की जन्म तिथि',
+                'groom_father_name': 'दूल्हे के पिता का नाम',
+                'wedding_date': 'विवाह की तारीख',
+                'ifsc_code': 'IFSC कोड',
+                'bank_name': 'बैंक का नाम',
+                'branch_name': 'शाखा का नाम',
+                'account_number': 'खाता संख्या',
+                'account_holder_name': 'खाता धारक का नाम',
+                'marriage_certificate': 'विवाह कार्ड/निमंत्रण'
+            };
+            
+            alert(`कृपया ${fieldNames[field] || field} भरें।`);
+            return false;
+        }
+    }
+
+    // Check confirm_details checkbox
+    const confirmDetails = document.getElementById('confirm_details');
+    if (!confirmDetails.checked) {
+        const tab = new bootstrap.Tab(document.getElementById('documents-tab'));
+        tab.show();
+        
+        setTimeout(() => {
+            confirmDetails.focus();
+            confirmDetails.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 300);
+        
+        alert('कृपया सभी शर्तों को स्वीकार करें।');
+        return false;
+    }
+
+    return true;
+}
 
 function showTab(tabId) {
     const tab = new bootstrap.Tab(document.getElementById(tabId));
@@ -364,13 +430,9 @@ function updatePreview() {
     document.getElementById('preview_member_id').textContent = document.getElementById('member_id_display').value || '-';
     document.getElementById('preview_bride_name').textContent = document.getElementById('bride_name').value || '-';
     document.getElementById('preview_bride_dob').textContent = document.getElementById('bride_dob').value || '-';
-    document.getElementById('preview_bride_health').textContent = document.getElementById('bride_health').value || '-';
     document.getElementById('preview_groom_name').textContent = document.getElementById('groom_name').value || '-';
     document.getElementById('preview_groom_dob').textContent = document.getElementById('groom_dob').value || '-';
-    document.getElementById('preview_groom_occupation').textContent = document.getElementById('groom_occupation').value || '-';
     document.getElementById('preview_wedding_date').textContent = document.getElementById('wedding_date').value || '-';
-    document.getElementById('preview_family_income').textContent = '₹' + (document.getElementById('family_income').value || '0');
-    document.getElementById('preview_family_members').textContent = document.getElementById('family_members').value || '-';
     document.getElementById('preview_account_number').textContent = '**** **** **** ' + (document.getElementById('account_number').value.slice(-4) || '****');
 }
 
@@ -443,33 +505,29 @@ $(document).ready(function() {
     function logFormData() {
         const requiredFields = [
             'member_name', 'member_id_display',
-            'bride_name', 'bride_dob', 'bride_health',
-            'groom_name', 'groom_dob', 'groom_occupation', 'groom_father_name',
+            'bride_name', 'bride_dob',
+            'groom_name', 'groom_dob', 'groom_father_name',
             'wedding_date',
-            'family_income', 'family_members', 'member_address',
+            'member_address',
             'ifsc_code', 'bank_name', 'branch_name', 'account_number', 'account_holder_name'
         ];
 
-        console.log('=== FORM DATA DEBUG ===');
         const missingInForm = [];
         requiredFields.forEach(field => {
             const elem = document.getElementById(field);
             if (elem) {
                 const value = elem.value;
-                console.log(`${field}: ${value ? '✓ ' + value.substring(0, 20) : '✗ EMPTY'}`);
                 if (!value) {
                     missingInForm.push(field);
                 }
             } else {
-                console.log(`${field}: ✗ NOT FOUND IN DOM`);
                 missingInForm.push(field);
             }
         });
         
         if (missingInForm.length > 0) {
-            console.warn('Missing fields:', missingInForm);
+            // Missing fields warning removed for production
         }
-        console.log('======================');
     }
 
     // Handle form submission
@@ -478,19 +536,15 @@ $(document).ready(function() {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            if (!document.getElementById('confirm_details').checked) {
-                alert('कृपया सभी शर्तों को स्वीकार करें।');
+            // Comprehensive validation with tab navigation
+            if (!validateFormAndNavigate()) {
                 return;
             }
 
-            // Debug log
-            logFormData();
-
-            // ===== VALIDATION CHECK =====
+            // Additional field validations
             if (!validateAllFields()) {
                 return;
             }
-            // =============================
 
             const loader = $('#loader');
             const submitBtn = $('#submit-btn');
@@ -504,15 +558,9 @@ $(document).ready(function() {
             formData.append('action', 'submit_application');
 
             // Debug: Log FormData being sent
-            console.log('=== FORMDATA BEING SENT ===');
             for (let [key, value] of formData.entries()) {
-                if (value instanceof File) {
-                    console.log(`${key}: File(${value.name}, ${value.size} bytes)`);
-                } else {
-                    console.log(`${key}: ${value}`);
-                }
+                // Logging removed for production
             }
-            console.log('===========================');
 
             $.ajax({
                 url: '../api/beti_vivah_aavedan.php',
@@ -522,7 +570,6 @@ $(document).ready(function() {
                 processData: false,
                 dataType: 'json',
                 success: function(response) {
-                    console.log('API Success Response:', response);
                     if (response.success) {
                         const successMsg = $('#success-message');
                         document.getElementById('application-number').textContent = (response.data && response.data.application_number) ? response.data.application_number : 'N/A';
@@ -540,7 +587,6 @@ $(document).ready(function() {
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('AJAX Error:', xhr);
                     const errorMsg = $('#error-message');
                     let errorText = 'आवेदन जमा नहीं हो सका। कृपया पुनः प्रयास करें।';
                     
@@ -559,7 +605,6 @@ $(document).ready(function() {
                     
                     document.getElementById('error-text').textContent = errorText;
                     errorMsg.show();
-                    console.error('Error:', error);
                     submitBtn.prop('disabled', false);
                     loader.hide();
                 }

@@ -18,6 +18,9 @@ if (!isset($_SESSION['member_id'])) {
 }
 
 require_once '../includes/config.php';
+
+$memberDir = dirname($_SERVER['PHP_SELF']);
+$basePath = rtrim(str_replace('/member', '', $memberDir), '/');
 ?>
 <!DOCTYPE html>
 <html lang="hi">
@@ -76,6 +79,8 @@ require_once '../includes/config.php';
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Member Common JS -->
+    <script src="assets/js/member-common.js"></script>
     <!-- Member Donation JS -->
     <script src="assets/js/member_donation.js"></script>
 </body>

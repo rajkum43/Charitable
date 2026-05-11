@@ -39,6 +39,33 @@ try {
         exit;
     }
 
+    // Get latest renewal data
+    $renew_stmt = $pdo->prepare("
+        SELECT renew_date, renew_exp_date
+        FROM renew
+        WHERE member_id = ?
+        ORDER BY renew_date DESC
+        LIMIT 1
+    ");
+    $renew_stmt->execute([$member_id]);
+    $renewal = $renew_stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Add renewal data to member data
+    if ($renewal) {
+        $member['renew_date'] = $renewal['renew_date'];
+        $member['renew_exp_date'] = $renewal['renew_exp_date'];
+    } else {
+        // If no renewal record, calculate from created_at (add 1 year)
+        $member['renew_date'] = null;
+        if ($member['created_at']) {
+            $created_date = new DateTime($member['created_at']);
+            $created_date->add(new DateInterval('P1Y')); // Add 1 year
+            $member['renew_exp_date'] = $created_date->format('Y-m-d');
+        } else {
+            $member['renew_exp_date'] = null;
+        }
+    }
+
     echo json_encode([
         'success' => true,
         'data' => $member

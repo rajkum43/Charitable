@@ -198,11 +198,19 @@
 }
 
 /* Table Styles */
+body {
+    overflow-x: visible;
+}
+
 .table-responsive {
+    display: block;
+    width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .members-table {
+    min-width: 920px;
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 0;
