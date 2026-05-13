@@ -149,9 +149,24 @@ require_once '../includes/config.php';
 
                 <!-- Pagination -->
                 <div class="pagination" id="pagination"></div>
-            </div>
-        </div>
-    </div>
+
+                <!-- Poll Option Distribution Section -->
+                <div class="poll-distribution-section mt-5" id="pollDistributionSection" style="display: none;">
+                    <div class="section-title">
+                        <i class="fas fa-chart-pie me-2"></i>पोल विकल्प वितरण
+                    </div>
+                    
+                    <div class="distribution-info mb-3">
+                        <p class="text-muted">
+                            <i class="fas fa-info-circle me-2"></i>
+                            कुल <strong id="totalWithPoll">0</strong> सदस्यों को पोल विकल्प असाइन किए गए हैं
+                        </p>
+                    </div>
+
+                    <div class="distribution-cards" id="distributionCards">
+                        <!-- Distribution cards will be populated here -->
+                    </div>
+                </div>
 
     <!-- Member Details Modal -->
     <div class="modal" id="detailsModal">

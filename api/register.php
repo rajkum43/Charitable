@@ -320,29 +320,53 @@ try {
     // Set default status
     $status = 1;
 
-    // Prepare SQL statement
-    $stmt = $conn->prepare("
-        INSERT INTO members (
-            member_id, login_id, password, full_name, aadhar_number, 
-            father_husband_name, date_of_birth, mobile_number, gender, 
-            occupation, office_name, office_address, state, district, 
-            block, permanent_address, email, utr_number, payment_verified, 
-            nominee_name, nominee_relation, nominee_mobile, nominee_aadhar,
-            referrer_member_id, status
-        ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-        )
-    ");
+    // Select next poll_option dynamically based on minimum current count
+    $pollOption = null;
+    $pollOptionQuery = "
+        SELECT p.poll AS poll_option, COUNT(m.member_id) AS member_count
+        FROM (SELECT DISTINCT poll FROM poll) p
+        LEFT JOIN members m ON m.poll_option = p.poll AND m.status = 1
+        GROUP BY p.poll
+        ORDER BY member_count ASC, p.poll ASC
+        LIMIT 1
+    ";
 
-    if (!$stmt) {
-        $error = 'SQL तैयारी विफल: ' . $conn->error;
+    $pollOptionResult = $conn->query($pollOptionQuery);
+    if ($pollOptionResult) {
+        if ($pollOptionResult->num_rows > 0) {
+            $row = $pollOptionResult->fetch_assoc();
+            $pollOption = $row['poll_option'];
+        }
+    } else {
+        $error = 'Poll option selection failed: ' . $conn->error;
         logError($error);
         throw new Exception($error);
     }
 
-    // Bind parameters (all 25 fields now)
+    // Prepare SQL statement
+    $insertColumns = [
+        'member_id', 'login_id', 'password', 'full_name', 'aadhar_number',
+        'father_husband_name', 'date_of_birth', 'mobile_number', 'gender',
+        'occupation', 'office_name', 'office_address', 'state', 'district',
+        'block', 'permanent_address', 'email', 'utr_number', 'payment_verified',
+        'nominee_name', 'nominee_relation', 'nominee_mobile', 'nominee_aadhar',
+        'referrer_member_id', 'poll_option', 'status'
+    ];
+
+    $placeholders = implode(', ', array_fill(0, count($insertColumns), '?'));
+    $sql = "INSERT INTO members (" . implode(', ', $insertColumns) . ") VALUES ($placeholders)";
+
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        $error = 'SQL तैयारी विफल: ' . $conn->error . ' -- Query: ' . $sql;
+        logError($error);
+        throw new Exception($error);
+    }
+
+    // Bind parameters (all 26 fields now)
     $stmt->bind_param(
-        "sssssssssssssssssssssssii",
+        str_repeat('s', 18) . 'i' . str_repeat('s', 6) . 'i',
         $memberId,
         $loginId,
         $hashedPassword,
@@ -367,6 +391,7 @@ try {
         $nomineeMobile,
         $nomineeAadhar,
         $referrerMemberId,
+        $pollOption,
         $status
     );
 

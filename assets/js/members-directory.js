@@ -206,6 +206,8 @@ function loadMembers() {
         })
         .finally(() => {
             hideLoading();
+            // Load poll distribution after members are loaded
+            loadPollDistribution();
         });
 }
 

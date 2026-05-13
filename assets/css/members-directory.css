@@ -787,3 +787,134 @@ body {
         font-size: 0.7rem;
     }
 }
+
+/* Poll Distribution Section */
+.poll-distribution-section {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(13, 110, 253, 0.02) 100%);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.distribution-info {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.distribution-info p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.distribution-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.distribution-card {
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.distribution-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.distribution-card-option {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.distribution-card-count {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 8px;
+}
+
+.distribution-card-label {
+    font-size: 0.85rem;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.distribution-card-percentage {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.distribution-card.empty {
+    background: #f8f9fa;
+    border-style: dashed;
+    opacity: 0.6;
+}
+
+.distribution-card.empty .distribution-card-count {
+    color: #999;
+}
+
+@media (max-width: 768px) {
+    .poll-distribution-section {
+        padding: 20px;
+    }
+
+    .distribution-cards {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+    }
+
+    .distribution-card-option {
+        font-size: 1.5rem;
+    }
+
+    .distribution-card-count {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .poll-distribution-section {
+        padding: 15px;
+    }
+
+    .distribution-cards {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+    }
+
+    .distribution-card {
+        padding: 15px;
+    }
+
+    .distribution-card-option {
+        font-size: 1.3rem;
+    }
+
+    .distribution-card-count {
+        font-size: 1.1rem;
+    }
+
+    .distribution-card-percentage {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}

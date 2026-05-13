@@ -22,7 +22,6 @@ $memberName = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'सद�
     <link rel="stylesheet" href="../assets/css/member-change-password.css">
       <link rel="stylesheet" href="assets/css/member.css">
     <!-- Member Donation CSS -->
-    <link rel="stylesheet" href="assets/css/member_donation.css">
 </head>
 <body>
     <div class="member-container">
@@ -89,5 +88,6 @@ $memberName = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'सद�
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/member-change-password.js"></script>
+    <!-- Member Dashboard JS -->
 </body>
 </html>
